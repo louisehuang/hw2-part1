@@ -1,9 +1,17 @@
 import React, { createContext, useState } from 'react';
 
-export const ActivityContext = createContext();
+const ActivityContext = createContext();
 
-export const ActivityProvider = ({ children }) => {
-  const [activities, setActivities] = useState([]);
+const ActivityProvider = ({ children }) => {
+  const [activities, setActivities] = useState([
+    { label: 'Walking', value: 'Walking' },
+    { label: 'Running', value: 'Running' },
+    { label: 'Swimming', value: 'Swimming' },
+    { label: 'Weights', value: 'Weights' },
+    { label: 'Yoga', value: 'Yoga' },
+    { label: 'Cycling', value: 'Cycling' },
+    { label: 'Hiking', value: 'Hiking' },
+  ]);
 
   return (
     <ActivityContext.Provider value={{ activities, setActivities }}>
@@ -11,3 +19,5 @@ export const ActivityProvider = ({ children }) => {
     </ActivityContext.Provider>
   );
 };
+
+export { ActivityContext, ActivityProvider };

@@ -7,7 +7,8 @@ import AllActivitiesScreen from './screens/AllActivitiesScreen';
 import SpecialActivitiesScreen from './screens/SpecialActivitiesScreen';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-//import AddActivityScreen from './screens/AddActivityScreen';
+import AddActivityScreen from './screens/AddAnActivityScreen';
+import { ActivityProvider } from './components/ActivityContext'
 
 
 const Stack = createStackNavigator();
@@ -38,12 +39,16 @@ function MainTabNavigator() {
 export default function App() {
   return (
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Start" component={StartScreen} />
-          <Stack.Screen name="Main" component={MainTabNavigator} />
-         
+        <ActivityProvider>
+          <Stack.Navigator>
+            <Stack.Screen name="Start" component={StartScreen} />
+            <Stack.Screen name="Main" component={MainTabNavigator} />
+            <Stack.Screen name="Add An Activity" component={AddActivityScreen} />
           
-        </Stack.Navigator>
+            
+          </Stack.Navigator>
+        </ActivityProvider>
+        
       </NavigationContainer>
 
   );
