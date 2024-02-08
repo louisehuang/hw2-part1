@@ -49,7 +49,7 @@ export default function StartScreen({ navigation }) {
 
     if (isValidEmail && isValidPhoneNumber) {
       // Data is valid, navigate to the next screen
-      navigation.navigate('AllActivities');
+      navigation.navigate('Main');
     }
   }
 
