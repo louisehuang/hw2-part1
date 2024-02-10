@@ -18,6 +18,7 @@ export default function StartScreen({ navigation }) {
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true);
   const [isStartButtonDisabled, setIsStartButtonDisabled] = useState(true);
+  const [isStartButtonClicked, setIsStartButtonClicked] = useState(false);
 
   useEffect(() => {
     setIsStartButtonDisabled(!(email.trim() !== '' || phoneNumber.trim() !== ''));
@@ -41,17 +42,27 @@ export default function StartScreen({ navigation }) {
     setIsValidEmail(true);
     setIsValidPhoneNumber(true);
     setIsStartButtonDisabled(true);
+    setIsStartButtonClicked(false); 
   }
 
   function handleStart() {
-    checkEmailValidity();
-    checkPhoneNumberValidity();
-
-    if (isValidEmail && isValidPhoneNumber) {
-      // Data is valid, navigate to the next screen
-      navigation.navigate('Main');
+    // Check if both email and phone number are valid and the button is clicked
+    if (isValidEmail && isValidPhoneNumber && isStartButtonClicked) {
+      navigation.navigate('Main'); // Navigate to the main page
+    } else {
+      // Show error messages for email and phone number
+      checkEmailValidity();
+      checkPhoneNumberValidity();
+      // Set the button as clicked
+      setIsStartButtonClicked(true);
     }
   }
+  useEffect(() => {
+    if (isValidEmail && isValidPhoneNumber && isStartButtonClicked) {
+      navigation.navigate('Main');
+    }
+  }, [isValidEmail, isValidPhoneNumber, isStartButtonClicked]);
+
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: COLORS.background}]}>
@@ -65,7 +76,7 @@ export default function StartScreen({ navigation }) {
             onBlur={checkEmailValidity}
           />
         </View>
-        {!isValidEmail && <Text style={styles.errorText}>Please Enter a Valid Email Address</Text>}
+        {isStartButtonClicked &&!isValidEmail && <Text style={styles.errorText}>Please Enter a Valid Email Address</Text>}
 
         <Text style={styles.labelText}>Phone Number:</Text>
         <View style = {styles.inputContainer} >
@@ -77,7 +88,7 @@ export default function StartScreen({ navigation }) {
             onBlur={checkPhoneNumberValidity}
           />
         </View>
-        {!isValidPhoneNumber && <Text style={styles.errorText}>Please Enter a Valid Phone Number</Text>}
+        {isStartButtonClicked && !isValidPhoneNumber && <Text style={styles.errorText}>Please Enter a Valid Phone Number</Text>}
 
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonView}>
@@ -96,7 +107,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    //alignItems: 'center',
     
   },
   buttonView: {
