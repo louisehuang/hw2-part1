@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { View, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import ActivitiesList from '../components/ActivityList';
+import ActivityList from '../components/ActivityList';
 import { ActivityContext } from '../components/ActivityContext'; // Import your ActivityContext
 
 const SpecialActivitiesScreen = () => {
@@ -22,7 +22,7 @@ const SpecialActivitiesScreen = () => {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ActivitiesList activities={activities.filter(activity => activity.isSpecial)} />
+      <ActivityList activities={activities.filter(activity => activity.isSpecial)} />
     </View>
   );
 };

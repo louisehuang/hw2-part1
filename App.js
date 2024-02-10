@@ -38,18 +38,21 @@ function MainTabNavigator() {
 
 export default function App() {
   return (
-      <NavigationContainer>
-        <ActivityProvider>
-          <Stack.Navigator>
-            <Stack.Screen name="Start" component={StartScreen} />
-            <Stack.Screen name="Main" component={MainTabNavigator} />
-            <Stack.Screen name="Add An Activity" component={AddActivityScreen} />
-          
-            
-          </Stack.Navigator>
-        </ActivityProvider>
+    <ActivityProvider>
+       <NavigationContainer>
         
+        <Stack.Navigator>
+          <Stack.Screen name="Start" component={StartScreen} />
+          <Stack.Screen name="Main" component={MainTabNavigator} />
+          <Stack.Screen name="Add An Activity" component={AddActivityScreen} />
+        
+          
+        </Stack.Navigator>
+      
+      
       </NavigationContainer>
+    </ActivityProvider>
+     
 
   );
 }

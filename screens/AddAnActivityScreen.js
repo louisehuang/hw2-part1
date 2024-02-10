@@ -5,11 +5,13 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { ActivityContext } from '../components/ActivityContext';
 
 const AddActivityScreen = ({ navigation }) => {
-  const { activities } = useContext(ActivityContext);
+  const { activities, updateActivities } = useContext(ActivityContext);
   const [activityType, setActivityType] = useState('');
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
+  
 
   const handleSave = () => {
     // Validate user's entries
@@ -26,9 +28,8 @@ const AddActivityScreen = ({ navigation }) => {
       date,
     };
 
-    setActivities([activities, newActivity]); // Update the data array
+    updateActivities(newActivity);
 
-    // Navigate back to the previous screen
     navigation.goBack();
   };
 
@@ -46,11 +47,13 @@ const AddActivityScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <DropDownPicker
-        items={activities.map(activity => ({ label: activity, value: activity }))}
-        defaultValue={activityType}
-        containerStyle={{ height: 40, width: 200 }}
-        onChangeItem={(item) => setActivityType(item.value)}
+        open={open}
+        value={activityType}
+        items={activities.map(activity => ({ label: activity.label, value: activity.value, key: activity.value}))}
+        setOpen={setOpen}
+        setValue={setActivityType}
         placeholder="Select Activity Type"
+        
       />
       <TextInput
         value={duration}
