@@ -6,15 +6,8 @@ export const ActivityContext = createContext();
 
 // Activity provider
 export const ActivityProvider = ({ children }) => {
-  const [activities, setActivities] = useState([
-    { label: 'Walking', value: 'Walking'},
-    { label: 'Running', value: 'Running' },
-    { label: 'Swimming', value: 'Swimming'},
-    { label: 'Weights', value: 'Weights'},
-    { label: 'Yoga', value: 'Yoga' },
-    { label: 'Cycling', value: 'Cycling' },
-    { label: 'Hiking', value: 'Hiking' },
-  ]);
+  const [activities, setActivities] = useState([]);
+
 
   // Function to update activities array
   const updateActivities = (newActivity) => {
@@ -43,12 +36,12 @@ const ActivityList = ({ special }) => {
         data={filteredActivities}
         renderItem={({ item }) => (
           <View>
-            <Text>{item.type}</Text>
+            <Text>{item.label}</Text>
             <Text>Duration: {item.duration} minutes</Text>
             {special && <Text>Special Activity</Text>}
           </View>
         )}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item.value.toString()}
       />
     </View>
   );

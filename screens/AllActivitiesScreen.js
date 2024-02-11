@@ -26,14 +26,23 @@ const AllActivitiesScreen = () => {
     }
   }, [navigation]);
 
+  const formatDate = (date) => {
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+  };
+
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       {activities.map((activity, index) => (
-        <Text key={index}>{activity.label}</Text>
+        <View key={index}>
+          <Text>Type: {activity.type}</Text>
+          <Text>Duration: {activity.duration}</Text>
+          <Text>Date: {formatDate(activity.date)}</Text>
+        </View>
       ))}
     </View>
   );
 };
+
 
 export default AllActivitiesScreen;

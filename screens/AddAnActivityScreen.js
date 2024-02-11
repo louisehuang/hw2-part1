@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { View, Button, Alert,TextInput } from 'react-native';
+import { View, Button, Alert,TextInput,  StyleSheet,Text,TouchableOpacity } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { ActivityContext } from '../components/ActivityContext';
+import { COMMON_STYLES, COLORS, LOCATION } from '../components/styles';
 
 const AddActivityScreen = ({ navigation }) => {
   const { activities, updateActivities } = useContext(ActivityContext);
@@ -12,6 +13,16 @@ const AddActivityScreen = ({ navigation }) => {
   const [open, setOpen] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   
+
+  const activityOptions = [
+    { label: 'Walking', value: 'Walking' },
+    { label: 'Running', value: 'Running' },
+    { label: 'Swimming', value: 'Swimming' },
+    { label: 'Weights', value: 'Weights' },
+    { label: 'Yoga', value: 'Yoga' },
+    { label: 'Cycling', value: 'Cycling' },
+    { label: 'Hiking', value: 'Hiking' },
+  ];
 
   const handleSave = () => {
     // Validate user's entries
@@ -44,38 +55,99 @@ const AddActivityScreen = ({ navigation }) => {
     setDate(currentDate);
   };
 
+  const getWeekDate = (date) => {
+    const weekDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+    return weekDay[date.getDay()];
+  };
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
+      <Text style={styles.labelText}>Activity *</Text>
       <DropDownPicker
         open={open}
         value={activityType}
-        items={activities.map(activity => ({ label: activity.label, value: activity.value, key: activity.value}))}
+        items={activityOptions}
         setOpen={setOpen}
         setValue={setActivityType}
         placeholder="Select Activity Type"
         
       />
+      <Text style={styles.labelText}>Duration *</Text>
+      <View style={styles.inputContainer}>
+        
       <TextInput
         value={duration}
         onChangeText={setDuration}
         placeholder="Duration (minutes)"
         keyboardType="numeric"
       />
-      <Button title="Select Date" onPress={() => setShowDatePicker(true)} />
-      {showDatePicker && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode="date"
-          is24Hour={true}
-          display="default"
-          onChange={onChangeDate}
-        />
-      )}
+      </View>
+
+      <Text style={styles.labelText}>Date *</Text>
+      <View style={styles.inputContainer}>
+        <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+          <View style={styles.dateInput}>
+            <Text>{getWeekDate(date)} {date.toLocaleDateString()}</Text>
+          </View>
+        </TouchableOpacity>  
+          
+        </View>  
+
+        {showDatePicker && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode="date"
+            is24Hour={true}
+            display="inline"
+            onChange={onChangeDate}
+          />
+        )}
+      
+
       <Button title="Save" onPress={handleSave} />
       <Button title="Cancel" onPress={handleCancel} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  buttonView: {
+    width: "35%",
+    margin: 5,
+  },
+  buttonsContainer: { flexDirection: "row" },
+  labelText: {
+    fontSize: 16,
+    margin:5,
+    color: COLORS.text
+  },
+  inputContainer: {
+    marginVertical: 10,
+    padding: 10,
+    marginHorizontal: 5,
+    borderWidth: 2,
+    borderBlockColor: COLORS.text,
+    borderRadius: 7
+  },
+
+  input: {
+    borderBottomColor: COLORS.test,
+    fontSize: 20,
+    color: COLORS.header,
+    paddingVertical: 5,
+  },
+  errorText: {
+    color: 'grey',
+    fontSize: 16,
+    marginTop: 5,
+  },
+  
+});
 
 export default AddActivityScreen;
