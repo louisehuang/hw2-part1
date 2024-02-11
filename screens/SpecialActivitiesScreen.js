@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import ActivityList from '../components/ActivityList';
 import { ActivityContext } from '../components/ActivityContext'; // Import your ActivityContext
 
+import { Entypo } from '@expo/vector-icons';
+
 const SpecialActivitiesScreen = () => {
   const navigation = useNavigation();
   const { activities } = useContext(ActivityContext); // Access activities from context

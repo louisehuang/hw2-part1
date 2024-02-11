@@ -4,6 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { ActivityContext } from '../components/ActivityContext';
 import { COMMON_STYLES, COLORS, LOCATION } from '../components/styles';
+import CustomButton from '../components/CustomButton';
 
 const AddActivityScreen = ({ navigation }) => {
   const { activities, updateActivities } = useContext(ActivityContext);
@@ -49,6 +50,10 @@ const AddActivityScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
+
+
+  
+  //need to edit, since the date of today is default
   const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShowDatePicker(false);
@@ -78,7 +83,6 @@ const AddActivityScreen = ({ navigation }) => {
       <TextInput
         value={duration}
         onChangeText={setDuration}
-        placeholder="Duration (minutes)"
         keyboardType="numeric"
       />
       </View>
@@ -90,8 +94,7 @@ const AddActivityScreen = ({ navigation }) => {
             <Text>{getWeekDate(date)} {date.toLocaleDateString()}</Text>
           </View>
         </TouchableOpacity>  
-          
-        </View>  
+      </View>    
 
         {showDatePicker && (
           <DateTimePicker
@@ -103,11 +106,16 @@ const AddActivityScreen = ({ navigation }) => {
             onChange={onChangeDate}
           />
         )}
-      
 
-      <Button title="Save" onPress={handleSave} />
-      <Button title="Cancel" onPress={handleCancel} />
-    </View>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonView}>
+          
+        <CustomButton title="Save" onPress={handleSave} />
+        </View>
+          <View style={styles.buttonView}></View>
+          <Button title="Cancel" onPress={handleCancel} />
+      </View>
+    </View>  
   );
 };
 
