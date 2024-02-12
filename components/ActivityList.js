@@ -16,7 +16,11 @@ export const ActivityProvider = ({ children }) => {
   };
   const formatDate = (date) => {
     const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-    return date ? date.toLocaleDateString(undefined, options) : 'Select date';
+    const formattedDate = date.toLocaleDateString(undefined, options);
+    const parts = formattedDate.split(', ');
+  
+    // Join the parts without the comma
+    return parts.join(' ');
   };
 
   return (

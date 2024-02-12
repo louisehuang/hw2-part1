@@ -1,28 +1,41 @@
-import React, { useContext, useState } from 'react';
-import { View, Button, Alert,TextInput,  StyleSheet,Text,TouchableOpacity } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import React, { useContext, useState,useEffect } from 'react';
+import { View, Button, Alert,TextInput,  StyleSheet,Text,TouchableOpacity,Keyboard } from 'react-native';
+import { SelectList } from 'react-native-dropdown-select-list'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { ActivityContext } from '../components/ActivityList';
-import { COMMON_STYLES, COLORS, LOCATION } from '../components/styles';
+import { COMMON_STYLES, COLORS } from '../components/styles';
 import CustomButton from '../components/CustomButton';
 
 const AddActivityScreen = ({ navigation }) => {
   const {updateActivities } = useContext(ActivityContext);
   const [activityType, setActivityType] = useState('');
   const [duration, setDuration] = useState('');
-  const [date, setDate] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [date, setDate] = useState();
   const [showDatePicker, setShowDatePicker] = useState(false);
   
+  useEffect(() => {
+    //dynamically adjust the layout when the keyboard is shown or hidden
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
+
+    });
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+     
+    });
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   const activityOptions = [
-    { key: '1', label: 'Walking', value: 'Walking' },
-    { key: '2', label: 'Running', value: 'Running' },
-    { key: '3', label: 'Swimming', value: 'Swimming' },
-    { key: '4', label: 'Weights', value: 'Weights' },
-    { key: '5', label: 'Yoga', value: 'Yoga' },
-    { key: '6', label: 'Cycling', value: 'Cycling' },
-    { key: '7', label: 'Hiking', value: 'Hiking' },
+    { label: 'Walking', value: 'Walking' },
+    { label: 'Running', value: 'Running' },
+    { label: 'Swimming', value: 'Swimming' },
+    { label: 'Weights', value: 'Weights' },
+    { label: 'Yoga', value: 'Yoga' },
+    { label: 'Cycling', value: 'Cycling' },
+    { label: 'Hiking', value: 'Hiking' },
   ];
 
   const handleSave = () => {
@@ -51,7 +64,7 @@ const AddActivityScreen = ({ navigation }) => {
   };
 
   const onChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || date || new Date();
     setShowDatePicker(false);
     setDate(currentDate);
   };
@@ -59,21 +72,21 @@ const AddActivityScreen = ({ navigation }) => {
   const formatDate = (date) => {
     if (!date) return '';
     const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-    return date ? date.toLocaleDateString(undefined, options) : '';
+    const formattedDate = date.toLocaleDateString(undefined, options);
+    const parts = formattedDate.split(', ');
+  
+    // Join the parts without the comma
+    return parts.join(' ');
   };
 
   return (
     <View style={COMMON_STYLES.container}>
       <View style={COMMON_STYLES.addAcvityContainer}>
       <Text style={COMMON_STYLES.labelText}>Activity *</Text>
-      <DropDownPicker
-        open={open}
-        value={activityType}
-        items={activityOptions}
-        setOpen={setOpen}
-        setValue={setActivityType}
-        placeholder="Select An Activity"
-        style={{ backgroundColor: COLORS.background }}
+      <SelectList
+        data={activityOptions}
+        setSelected={setActivityType}
+        defaultSelectedIndex={-1} 
       />
       <Text style={COMMON_STYLES.labelText}>Duration *</Text>
       <View style={COMMON_STYLES.inputContainer}>
@@ -94,6 +107,7 @@ const AddActivityScreen = ({ navigation }) => {
         </TouchableOpacity>  
       </View>    
 
+      <TouchableOpacity onPress={() => setShowDatePicker(prevState => !prevState)}>
         {showDatePicker && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -105,6 +119,7 @@ const AddActivityScreen = ({ navigation }) => {
             style={COMMON_STYLES.labelText}
           />
         )}
+      </TouchableOpacity>  
 
         <View style={COMMON_STYLES.buttonsContainer}>
           <View style={COMMON_STYLES.buttonView}>

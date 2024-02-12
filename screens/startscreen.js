@@ -23,6 +23,21 @@ export default function StartScreen({ navigation }) {
   useEffect(() => {
     setIsStartButtonDisabled(!(email.trim() !== '' || phoneNumber.trim() !== ''));
   }, [email, phoneNumber]);
+  
+  useEffect(() => {
+    //dynamically adjust the layout when the keyboard is shown or hidden
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
+
+    });
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+     
+    });
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   function checkEmailValidity() {
     // Use a regular expression to check for a valid email format
@@ -48,14 +63,13 @@ export default function StartScreen({ navigation }) {
   function handleStart() {
     checkEmailValidity();
     checkPhoneNumberValidity();
-    
-  
+    setIsStartButtonClicked(true);
     // Check if both email and phone number are valid and the button is clicked
     if (isValidEmail && isValidPhoneNumber && isStartButtonClicked) {
       navigation.navigate('Main'); // Navigate to the main page
+      
     }
-    // Set the button as clicked
-    setIsStartButtonClicked(true);
+    
   }
 
 

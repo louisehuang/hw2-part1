@@ -52,8 +52,8 @@ export default function App() {
           headerTintColor: COLORS.headerText,
         }}>
           <Stack.Screen name="Start" component={StartScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }}  />
-          <Stack.Screen name="Add An Activity" component={AddActivityScreen} options={{ 
+          <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }}/>
+          <Stack.Screen name="Add An Activity" component={AddActivityScreen} options={{ headerTitle: '', 
             headerTitleStyle: { color: COLORS.headerText }, 
           }}/>
         

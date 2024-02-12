@@ -1,10 +1,10 @@
 
 import React, { useContext,useEffect } from "react";
-import { View, Text,Button,StyleSheet } from 'react-native';
+import { View, Text,Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ActivityContext } from '../components/ActivityList'; // Import your ActivityContext
 import { Entypo } from '@expo/vector-icons';
-import { COLORS, COMMON_STYLES } from "../components/styles";
+import { COMMON_STYLES } from "../components/styles";
 
 
 
