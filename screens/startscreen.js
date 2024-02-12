@@ -91,7 +91,7 @@ export default function StartScreen({ navigation }) {
           </View>
           <View style={COMMON_STYLES.buttonView}>
             <Button title="Start"
-            style={{ backgroundColor: isStartButtonDisabled ? 'grey' : 'purple' }}  
+             color={isStartButtonDisabled ? COLORS.grey : COLORS.text }  
 
             onPress={handleStart} disabled={isStartButtonDisabled} />
           </View>

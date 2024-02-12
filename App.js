@@ -18,12 +18,11 @@ const Tab = createBottomTabNavigator();
 function MainTabNavigator() {
   return (
     <Tab.Navigator  screenOptions={{
-      hheaderStyle: { backgroundColor: COLORS.header },
+      headerStyle: { backgroundColor: COLORS.header },
+      headerTintColor: COLORS.headerText,
       tabBarStyle: { backgroundColor: COLORS.header}, // Set tabBar background color
-      tabBarOptions: {
-        activeTintColor: COLORS.icon, 
-        inactiveTintColor: COLORS.grey,
-        },
+      tabBarActiveTintColor:COLORS.icon,
+      tabBarinactiveTintColor: COLORS.grey,
       }}
     >
       <Tab.Screen name="All Activities" 

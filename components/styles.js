@@ -2,9 +2,8 @@ export const COLORS = {
     background:"lavender",
     text:'rebeccapurple',
     header:'darkslateblue',
+    headerText: 'white',
     grey:'grey',
-    darkgray: "darkgray",
-    showdow:"'c0c0c0'",
     button: 'firebrick',
     icon:'gold'
   
@@ -39,7 +38,12 @@ export const COLORS = {
         borderRadius: 7
       },
 
-      buttonsContainer: { flexDirection: "row" },
+      buttonsContainer: { 
+        padding: 40,
+        marginHorizontal: 20,
+        marginVertical: 20,
+        marginRight: 0,
+        flexDirection: "row" },
       buttonView: {
         width: "35%",
         margin: 5,

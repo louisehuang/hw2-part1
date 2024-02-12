@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { View,Text, Button,  StyleSheet, } from 'react-native';
+import { View,Text, Button} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ActivityContext } from '../components/ActivityContext'; 
 import { COMMON_STYLES } from "../components/styles";

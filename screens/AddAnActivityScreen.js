@@ -7,7 +7,7 @@ import { COMMON_STYLES, COLORS, LOCATION } from '../components/styles';
 import CustomButton from '../components/CustomButton';
 
 const AddActivityScreen = ({ navigation }) => {
-  const { activities, updateActivities } = useContext(ActivityContext);
+  const {updateActivities } = useContext(ActivityContext);
   const [activityType, setActivityType] = useState('');
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(null);
@@ -28,7 +28,7 @@ const AddActivityScreen = ({ navigation }) => {
   const handleSave = () => {
     // Validate user's entries
     if (!activityType || !duration || isNaN(duration) || duration <= 0 || !date) {
-      Alert.alert('Invalid Input', 'Please fill in all fields with valid data.');
+      Alert.alert('Invalid Input', 'Please check you input values.');
       return;
     }
 
@@ -50,10 +50,6 @@ const AddActivityScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
-
-
-  
-  //need to edit, since the date of today is default
   const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShowDatePicker(false);
@@ -61,13 +57,14 @@ const AddActivityScreen = ({ navigation }) => {
   };
 
   const formatDate = (date) => {
-    if (!date) return 'Select date';
+    if (!date) return '';
     const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
     return date ? date.toLocaleDateString(undefined, options) : '';
   };
 
   return (
     <View style={COMMON_STYLES.container}>
+      
       <Text style={COMMON_STYLES.labelText}>Activity *</Text>
       <DropDownPicker
         open={open}
@@ -75,8 +72,8 @@ const AddActivityScreen = ({ navigation }) => {
         items={activityOptions}
         setOpen={setOpen}
         setValue={setActivityType}
-        placeholder="Select Activity Type"
-        
+        placeholder="Select An Activity"
+        style={{ backgroundColor: COLORS.background }}
       />
       <Text style={COMMON_STYLES.labelText}>Duration *</Text>
       <View style={COMMON_STYLES.inputContainer}>
@@ -92,7 +89,7 @@ const AddActivityScreen = ({ navigation }) => {
       <View style={COMMON_STYLES.inputContainer}>
         <TouchableOpacity onPress={() => setShowDatePicker(true)}>
           <View style={styles.dateInput}>
-            <Text>{formatDate(date)}</Text>
+            <Text style={COMMON_STYLES.labelText}>{formatDate(date)}</Text>
           </View>
         </TouchableOpacity>  
       </View>    
@@ -105,22 +102,23 @@ const AddActivityScreen = ({ navigation }) => {
             is24Hour={true}
             display="inline"
             onChange={onChangeDate}
+            style={COMMON_STYLES.labelText}
           />
         )}
 
         <View style={COMMON_STYLES.buttonsContainer}>
           <View style={COMMON_STYLES.buttonView}>
-          
-        <CustomButton title="Save" onPress={handleSave} />
+            <CustomButton title="Cancel" onPress={handleCancel} />
         </View>
           <View style={COMMON_STYLES.buttonView}></View>
-          <Button title="Cancel" onPress={handleCancel} />
+            <Button title="Save" onPress={handleSave} color={ COLORS.text}/>
       </View>
     </View>  
   );
 };
 
 const styles = StyleSheet.create({
+
   input: {
     borderBottomColor: COLORS.test,
     fontSize: 20,
@@ -128,7 +126,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   errorText: {
-    color: 'grey',
+    color: COLORS.grey,
     fontSize: 16,
     marginTop: 5,
   },
