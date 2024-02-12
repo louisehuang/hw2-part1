@@ -1,9 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { View,Text, Button,  StyleSheet, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import ActivityList from '../components/ActivityList';
-import { ActivityContext } from '../components/ActivityContext'; // Import your ActivityContext
-
+import { ActivityContext } from '../components/ActivityContext'; 
+import { COLORS } from "../components/styles";
 import { Entypo } from '@expo/vector-icons';
 
 const SpecialActivitiesScreen = () => {
@@ -30,41 +29,67 @@ const SpecialActivitiesScreen = () => {
     <View style={styles.container}>
       {specialActivities.map((activity, index) => (
         <View key={activity.id} style={styles.activityContainer}>
-         <Text style={styles.activityText}>
-              {activity.type} <Entypo name="warning" size={24} color="black" /> {activity.duration} mins 
+         <Text style={styles.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={24} color="yellow" />}
+           </Text>
+         <View style={styles.activityInfo}>
+            <Text style={styles.activityInfoText}>
+              {activity.duration} mins 
+              </Text>
+        </View>
+          <View style={styles.activityInfo}>
+            <Text style={styles.activityInfoText}>     
               {activity.formattedDate}
             </Text>
+        </View>
+
         </View>
       ))}
     </View>
   );
 };
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    marginTop:10,
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: 20,
   },
-
   activityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'white',
-    backgroundColor:'darkblue',
+    borderColor: 'purple',
+    backgroundColor:'purple',
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
     width: '90%',
-    backgroundColor: 'white',
+  },
+  iconInfo: {
+    flexDirection: 'row',
+    backgroundColor: 'purple',
+    padding: 5,
+    marginHorizontal:5,
+    marginRight: 3,
+    justifyContent: 'flex-end'
   },
   activityInfo: {
+    flexDirection: 'row',
     backgroundColor: 'white',
-    borderRadius: 5,
     padding: 5,
-    marginVertical: 5,
+    marginHorizontal:3,
+    //marginRight: 4,
+    justifyContent: 'flex-end'
   },
   activityText: {
+    fontSize: 16,
+    color:COLORS.text,
+    marginRight: 10,
+  },
+  activityInfoText: {
     fontSize: 16,
   },
 });
