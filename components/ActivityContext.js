@@ -11,7 +11,13 @@ export const ActivityProvider = ({ children }) => {
 
   // Function to update activities array
   const updateActivities = (newActivity) => {
-    setActivities([...activities, newActivity]);
+    const formattedDate = formatDate(newActivity.date);
+    const activityWithFormattedDate = { ...newActivity, formattedDate };
+    setActivities([...activities, activityWithFormattedDate]);
+  };
+  const formatDate = (date) => {
+    const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+    return date ? date.toLocaleDateString(undefined, options) : 'Select date';
   };
 
   return (

@@ -29,21 +29,18 @@ const AllActivitiesScreen = () => {
     }
   }, [navigation]);
 
-  const formatDate = (date) => {
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-  };
 
 
   return (
     <View style={styles.container}>
       {activities.map((activity, index) => (
-        <View key={index} style={styles.activityContainer}>
+        <View key={activity.id} style={styles.activityContainer}>
           <View style={styles.activityInfo}>
             <Text style={styles.activityText}>{activity.type} 
             {specialActivities.includes(activity) && <Entypo name="warning" size={24} color="black" />}
             
             {activity.duration} mins
-            {formatDate(activity.date)}
+            {activity.formattedDate}
             </Text>
           </View>
         </View>

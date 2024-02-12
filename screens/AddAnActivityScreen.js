@@ -16,13 +16,13 @@ const AddActivityScreen = ({ navigation }) => {
   
 
   const activityOptions = [
-    { label: 'Walking', value: 'Walking' },
-    { label: 'Running', value: 'Running' },
-    { label: 'Swimming', value: 'Swimming' },
-    { label: 'Weights', value: 'Weights' },
-    { label: 'Yoga', value: 'Yoga' },
-    { label: 'Cycling', value: 'Cycling' },
-    { label: 'Hiking', value: 'Hiking' },
+    { key: '1', label: 'Walking', value: 'Walking' },
+    { key: '2', label: 'Running', value: 'Running' },
+    { key: '3', label: 'Swimming', value: 'Swimming' },
+    { key: '4', label: 'Weights', value: 'Weights' },
+    { key: '5', label: 'Yoga', value: 'Yoga' },
+    { key: '6', label: 'Cycling', value: 'Cycling' },
+    { key: '7', label: 'Hiking', value: 'Hiking' },
   ];
 
   const handleSave = () => {
@@ -61,8 +61,9 @@ const AddActivityScreen = ({ navigation }) => {
   };
 
   const formatDate = (date) => {
+    if (!date) return 'Select date';
     const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-    return date ? date.toLocaleDateString(undefined, options) : 'Select date';
+    return date ? date.toLocaleDateString(undefined, options) : '';
   };
 
   return (

@@ -26,15 +26,13 @@ const SpecialActivitiesScreen = () => {
     });
   }, [navigation]);
 
-  const formatDate = (date) => {
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-  };
   return (
     <View style={styles.container}>
       {specialActivities.map((activity, index) => (
-        <View style={styles.activityContainer}>
+        <View key={activity.id} style={styles.activityContainer}>
          <Text style={styles.activityText}>
-              {activity.type} <Entypo name="warning" size={24} color="black" /> {activity.duration} mins {formatDate(activity.date)}
+              {activity.type} <Entypo name="warning" size={24} color="black" /> {activity.duration} mins 
+              {activity.formattedDate}
             </Text>
         </View>
       ))}
