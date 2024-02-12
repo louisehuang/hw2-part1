@@ -67,8 +67,8 @@ const AddActivityScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.labelText}>Activity *</Text>
+    <View style={COMMON_STYLES.container}>
+      <Text style={COMMON_STYLES.labelText}>Activity *</Text>
       <DropDownPicker
         open={open}
         value={activityType}
@@ -78,8 +78,8 @@ const AddActivityScreen = ({ navigation }) => {
         placeholder="Select Activity Type"
         
       />
-      <Text style={styles.labelText}>Duration *</Text>
-      <View style={styles.inputContainer}>
+      <Text style={COMMON_STYLES.labelText}>Duration *</Text>
+      <View style={COMMON_STYLES.inputContainer}>
         
       <TextInput
         value={duration}
@@ -88,8 +88,8 @@ const AddActivityScreen = ({ navigation }) => {
       />
       </View>
 
-      <Text style={styles.labelText}>Date *</Text>
-      <View style={styles.inputContainer}>
+      <Text style={COMMON_STYLES.labelText}>Date *</Text>
+      <View style={COMMON_STYLES.inputContainer}>
         <TouchableOpacity onPress={() => setShowDatePicker(true)}>
           <View style={styles.dateInput}>
             <Text>{formatDate(date)}</Text>
@@ -108,12 +108,12 @@ const AddActivityScreen = ({ navigation }) => {
           />
         )}
 
-        <View style={styles.buttonsContainer}>
-          <View style={styles.buttonView}>
+        <View style={COMMON_STYLES.buttonsContainer}>
+          <View style={COMMON_STYLES.buttonView}>
           
         <CustomButton title="Save" onPress={handleSave} />
         </View>
-          <View style={styles.buttonView}></View>
+          <View style={COMMON_STYLES.buttonView}></View>
           <Button title="Cancel" onPress={handleCancel} />
       </View>
     </View>  
@@ -121,30 +121,6 @@ const AddActivityScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-  },
-  buttonView: {
-    width: "35%",
-    margin: 5,
-  },
-  buttonsContainer: { flexDirection: "row" },
-  labelText: {
-    fontSize: 16,
-    margin:5,
-    color: COLORS.text
-  },
-  inputContainer: {
-    marginVertical: 10,
-    padding: 10,
-    marginHorizontal: 5,
-    borderWidth: 2,
-    borderBlockColor: COLORS.text,
-    borderRadius: 7
-  },
-
   input: {
     borderBottomColor: COLORS.test,
     fontSize: 20,

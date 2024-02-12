@@ -9,27 +9,35 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import AddActivityScreen from './screens/AddAnActivityScreen';
 import { ActivityProvider } from './components/ActivityContext'
+import { COLORS } from './components/styles';
 
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-
 function MainTabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator  screenOptions={{
+      hheaderStyle: { backgroundColor: COLORS.header },
+      tabBarStyle: { backgroundColor: COLORS.header}, // Set tabBar background color
+      tabBarOptions: {
+        activeTintColor: COLORS.icon, 
+        inactiveTintColor: COLORS.grey,
+        },
+      }}
+    >
       <Tab.Screen name="All Activities" 
       component={AllActivitiesScreen} 
       options={{
-        tabBarIcon:() => (<MaterialIcons name="attach-money" 
-        size={24} color="black" />
+        tabBarIcon:({ color }) => (<MaterialIcons name="attach-money" 
+        size={24} color={color} />
         ),
       }}/>
       <Tab.Screen name="Special Activities" 
       component={SpecialActivitiesScreen} 
       options={{
-        tabBarIcon: () => (
-          <AntDesign name="exclamation" size={24} color={'black'} />
+        tabBarIcon: ({ color }) => (
+          <AntDesign name="exclamation" size={24} color={color}  />
         ),
       }}/>
     </Tab.Navigator>
@@ -42,8 +50,8 @@ export default function App() {
        <NavigationContainer>
         
         <Stack.Navigator>
-          <Stack.Screen name="Start" component={StartScreen} />
-          <Stack.Screen name="Main" component={MainTabNavigator} />
+          <Stack.Screen name="Start" component={StartScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }}  />
           <Stack.Screen name="Add An Activity" component={AddActivityScreen} />
         
           

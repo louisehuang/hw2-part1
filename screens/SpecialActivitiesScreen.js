@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { View,Text, Button,  StyleSheet, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ActivityContext } from '../components/ActivityContext'; 
-import { COLORS } from "../components/styles";
+import { COMMON_STYLES } from "../components/styles";
 import { Entypo } from '@expo/vector-icons';
 
 const SpecialActivitiesScreen = () => {
@@ -26,73 +26,34 @@ const SpecialActivitiesScreen = () => {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
-      {specialActivities.map((activity, index) => (
-        <View key={activity.id} style={styles.activityContainer}>
-         <Text style={styles.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={24} color="yellow" />}
-           </Text>
-         <View style={styles.activityInfo}>
-            <Text style={styles.activityInfoText}>
-              {activity.duration} mins 
-              </Text>
-        </View>
-          <View style={styles.activityInfo}>
-            <Text style={styles.activityInfoText}>     
-              {activity.formattedDate}
+
+    <View style={COMMON_STYLES.container}>
+      <View style={COMMON_STYLES.specialContainer}>
+        {specialActivities.map((activity) => (
+          <View key={activity.id} style={COMMON_STYLES.activityContainer}>
+          <Text style={COMMON_STYLES.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={24} color="yellow" />}
             </Text>
+          <View style={COMMON_STYLES.activityInfo}>
+              <Text style={COMMON_STYLES.activityInfoText}>
+                {activity.duration} mins 
+                </Text>
+          </View>
+            <View style={COMMON_STYLES.activityInfo}>
+              <Text style={COMMON_STYLES.activityInfoText}>     
+                {activity.formattedDate}
+              </Text>
         </View>
 
         </View>
       ))}
+      </View>
+      
     </View>
   );
 };
 
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop:10,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  activityContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'purple',
-    backgroundColor:'purple',
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
-    width: '90%',
-  },
-  iconInfo: {
-    flexDirection: 'row',
-    backgroundColor: 'purple',
-    padding: 5,
-    marginHorizontal:5,
-    marginRight: 3,
-    justifyContent: 'flex-end'
-  },
-  activityInfo: {
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    padding: 5,
-    marginHorizontal:3,
-    //marginRight: 4,
-    justifyContent: 'flex-end'
-  },
-  activityText: {
-    fontSize: 16,
-    color:COLORS.text,
-    marginRight: 10,
-  },
-  activityInfoText: {
-    fontSize: 16,
-  },
-});
 
 
 export default SpecialActivitiesScreen;

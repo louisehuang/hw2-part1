@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     color: COLORS.button,
-    fontSize: 20,
+    fontSize: 18,
   },
   disabledButton: {
     backgroundColor: COLORS.grey,
