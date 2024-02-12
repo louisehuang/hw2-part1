@@ -31,7 +31,7 @@ const SpecialActivitiesScreen = () => {
       <View style={COMMON_STYLES.specialContainer}>
         {specialActivities.map((activity) => (
           <View key={activity.id} style={COMMON_STYLES.activityContainer}>
-          <Text style={COMMON_STYLES.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={24} color="yellow" />}
+          <Text style={COMMON_STYLES.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={15} color="gold" />}
             </Text>
           <View style={COMMON_STYLES.activityInfo}>
               <Text style={COMMON_STYLES.activityInfoText}>

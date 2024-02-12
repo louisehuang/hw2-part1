@@ -14,6 +14,7 @@ export const COLORS = {
   export const LOCATION = {
     center: "center",
     left: "left",
+    top:'flex-start'
   
   };
   
@@ -23,14 +24,20 @@ export const COLORS = {
         flex: 1,
         justifyContent: LOCATION.center,
         backgroundColor: COLORS.background,
-        //paddingHorizontal: 20
+      },
+      addAcvityContainer: {
+        flex: 1,
+        marginTop:20,
+        justifyContent: LOCATION.top,
+        padding: 10,
+
       },
 
       specialContainer: {
         flex: 1,
         marginTop:20,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
+        justifyContent: LOCATION.top,
+        alignItems: LOCATION.center,
       },
       inputContainer: {
         marginVertical: 10,
@@ -67,7 +74,7 @@ export const COLORS = {
         fontSize: 15,
         marginTop: 5,
         marginHorizontal:5,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
       },
       inputText: {
         color: COLORS.inputText,
@@ -80,43 +87,50 @@ export const COLORS = {
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: 'darkslateblue ',
-        backgroundColor:'darkslateblue',
+        borderColor: COLORS.header,
+        backgroundColor:COLORS.header,
         borderRadius: 10,
-        padding: 10,
+        padding: 8,
         marginBottom: 10,
         width: '90%',
+        justifyContent: 'flex-end',
+        
       },
       iconInfo: {
         flexDirection: 'row',
-        backgroundColor: 'darkslateblue ',
+        backgroundColor: COLORS.header,
         padding: 5,
         marginHorizontal:5,
         marginRight: 3,
-        justifyContent: 'flex-end'
+        justifyContent: LOCATION.top
+      },
+      activityInfoContainer:{
+        flexDirection: 'row',
+        backgroundColor:COLORS.header,
+
       },
       activityInfo: {
         flexDirection: 'row',
         backgroundColor: 'white',
         padding: 5,
-        marginHorizontal:3,
-        //marginRight: 4,
-        justifyContent: 'flex-end'
+        marginRight:5,
+        minWidth: 80,
+        justifyContent: 'center' 
       },
       activityText: {
         fontSize: 15,
-        color: 'mediumpurple',
+        color: COLORS.inputText,
         marginRight: 10,
         fontWeight: 'bold',
       },
       activityInfoText: {
         fontSize: 15,
-        color:'mediumpurple',
+        color:COLORS.inputText,
         fontWeight: 'bold',
       },
       input: {
         borderBottomColor: COLORS.test,
-        fontSize: 18,
+        fontSize: 1,
         color: COLORS.header,
         paddingVertical: 5,
       },

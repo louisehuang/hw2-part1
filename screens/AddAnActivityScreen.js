@@ -64,7 +64,7 @@ const AddActivityScreen = ({ navigation }) => {
 
   return (
     <View style={COMMON_STYLES.container}>
-      
+      <View style={COMMON_STYLES.addAcvityContainer}>
       <Text style={COMMON_STYLES.labelText}>Activity *</Text>
       <DropDownPicker
         open={open}
@@ -113,6 +113,8 @@ const AddActivityScreen = ({ navigation }) => {
           <View style={COMMON_STYLES.buttonView}></View>
             <Button title="Save" onPress={handleSave} color={ COLORS.text}/>
       </View>
+      </View>
+
     </View>  
   );
 };

@@ -36,21 +36,30 @@ const AllActivitiesScreen = () => {
        <View style={COMMON_STYLES.specialContainer}>
         {activities.map((activity) => (
           <View key={activity.id} style={COMMON_STYLES.activityContainer}>
+
             <View style={COMMON_STYLES.iconInfo}>
-            <Text style={COMMON_STYLES.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={24} color="gold" />}
+            
+            <Text style={COMMON_STYLES.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={15} color="gold" />}
             </Text>
+            
+            
             </View>
-            <View style={COMMON_STYLES.activityInfo}>
-              <Text style={COMMON_STYLES.activityInfoText}>
-              {activity.duration} mins
-              </Text>
-            </View>  
-      
-            <View style={COMMON_STYLES.activityInfo}>
-              <Text style={COMMON_STYLES.activityInfoText}>
-              {activity.formattedDate}
-              </Text>
+
+            <View style={[COMMON_STYLES.activityInfoContainer,{ justifyContent: 'flex-end' }]}>
+              <View style={COMMON_STYLES.activityInfo}>
+                <Text style={COMMON_STYLES.activityInfoText}>
+                {activity.formattedDate}
+                </Text>
+              </View>
+              <View style={COMMON_STYLES.activityInfo}>
+                <Text style={COMMON_STYLES.activityInfoText}>
+                {activity.duration} mins
+                </Text>
+              </View>  
+        
+              
             </View>
+            
           </View>
           
         ))}
