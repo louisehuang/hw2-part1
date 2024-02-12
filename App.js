@@ -8,7 +8,7 @@ import SpecialActivitiesScreen from './screens/SpecialActivitiesScreen';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import AddActivityScreen from './screens/AddAnActivityScreen';
-import { ActivityProvider } from './components/ActivityContext'
+import { ActivityProvider } from './components/ActivityList'
 import { COLORS } from './components/styles';
 
 
@@ -29,14 +29,14 @@ function MainTabNavigator() {
       component={AllActivitiesScreen} 
       options={{
         tabBarIcon:({ color }) => (<MaterialIcons name="attach-money" 
-        size={24} color={color} />
+        size={25} color={color} />
         ),
       }}/>
       <Tab.Screen name="Special Activities" 
       component={SpecialActivitiesScreen} 
       options={{
         tabBarIcon: ({ color }) => (
-          <AntDesign name="exclamation" size={24} color={color}  />
+          <AntDesign name="exclamation" size={25} color={color}  />
         ),
       }}/>
     </Tab.Navigator>

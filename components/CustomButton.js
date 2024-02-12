@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { COMMON_STYLES, COLORS, LOCATION } from '../components/styles';
+import { COLORS, LOCATION } from '../components/styles';
 
 const CustomButton = ({ title, onPress, disabled }) => {
   return (

@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { View,Text, Button} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ActivityContext } from '../components/ActivityContext'; 
+import { ActivityContext } from '../components/ActivityList'; 
 import { COMMON_STYLES } from "../components/styles";
 import { Entypo } from '@expo/vector-icons';
 
 const SpecialActivitiesScreen = () => {
   const navigation = useNavigation();
-  const { activities } = useContext(ActivityContext); // Access activities from context
+  const { activities } = useContext(ActivityContext); 
   const specialActivities = activities.filter(
     activity => (activity.type === 'Running' || activity.type === 'Weights') && activity.duration > 60
   );

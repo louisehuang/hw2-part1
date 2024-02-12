@@ -1,26 +1,27 @@
-// components/ActivitiesList.js
+import React, { createContext, useState, useContext } from 'react';
 
-import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+// Activity context
+export const ActivityContext = createContext();
+
+// Activity provider
+export const ActivityProvider = ({ children }) => {
+  const [activities, setActivities] = useState([]);
 
 
-const ActivitiesList = ({ activities }) => {
+  // Function to update activities array
+  const updateActivities = (newActivity) => {
+    const formattedDate = formatDate(newActivity.date);
+    const activityWithFormattedDate = { ...newActivity, formattedDate };
+    setActivities([...activities, activityWithFormattedDate]);
+  };
+  const formatDate = (date) => {
+    const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+    return date ? date.toLocaleDateString(undefined, options) : 'Select date';
+  };
+
   return (
-    <View>
-      <FlatList
-        data={activities}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.name}</Text>
-            <Text>Type: {item.type}</Text>
-            <Text>Duration: {item.duration} minutes</Text>
-            <Text>Special: {item.isSpecial ? 'Yes' : 'No'}</Text>
-          </View>
-        )}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </View>
+    <ActivityContext.Provider value={{ activities, updateActivities }}>
+      {children}
+    </ActivityContext.Provider>
   );
 };
-
-export default ActivitiesList;

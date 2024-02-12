@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { View, Button, Alert,TextInput,  StyleSheet,Text,TouchableOpacity } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { ActivityContext } from '../components/ActivityContext';
+import { ActivityContext } from '../components/ActivityList';
 import { COMMON_STYLES, COLORS, LOCATION } from '../components/styles';
 import CustomButton from '../components/CustomButton';
 
