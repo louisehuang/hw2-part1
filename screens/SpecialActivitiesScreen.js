@@ -34,15 +34,18 @@ const SpecialActivitiesScreen = () => {
           <Text style={COMMON_STYLES.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={15} color="gold" />}
             </Text>
           <View style={COMMON_STYLES.activityInfo}>
+            <Text style={COMMON_STYLES.activityInfoText}>     
+              {activity.formattedDate}
+            </Text>
+          </View>
+
+          <View style={COMMON_STYLES.activityInfo}>
               <Text style={COMMON_STYLES.activityInfoText}>
                 {activity.duration} mins 
                 </Text>
           </View>
-            <View style={COMMON_STYLES.activityInfo}>
-              <Text style={COMMON_STYLES.activityInfoText}>     
-                {activity.formattedDate}
-              </Text>
-        </View>
+
+          
 
         </View>
       ))}

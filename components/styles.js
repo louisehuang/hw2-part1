@@ -125,7 +125,7 @@ export const COLORS = {
       },
       activityInfoText: {
         fontSize: 15,
-        color:COLORS.inputText,
+        color:COLORS.header,
         fontWeight: 'bold',
       },
       input: {
