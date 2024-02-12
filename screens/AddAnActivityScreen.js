@@ -10,7 +10,7 @@ const AddActivityScreen = ({ navigation }) => {
   const {updateActivities } = useContext(ActivityContext);
   const [activityType, setActivityType] = useState('');
   const [duration, setDuration] = useState('');
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   
   useEffect(() => {
@@ -65,9 +65,18 @@ const AddActivityScreen = ({ navigation }) => {
 
   const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate || date || new Date();
-    setShowDatePicker(false);
+    setShowDatePicker(false);;
+     setShowDatePicker (false);
     setDate(currentDate);
   };
+
+  const toggleDatePicker = () => {
+    setShowDatePicker(prevState => !prevState); // Toggle showDatePicker state
+    if (!showDatePicker) {
+      setDate(new Date());
+    }
+  };
+
 
   const formatDate = (date) => {
     if (!date) return '';
@@ -100,14 +109,13 @@ const AddActivityScreen = ({ navigation }) => {
 
       <Text style={COMMON_STYLES.labelText}>Date *</Text>
       <View style={COMMON_STYLES.inputContainer}>
-        <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+        <TouchableOpacity onPress={toggleDatePicker}>
           <View style={styles.dateInput}>
-            <Text style={COMMON_STYLES.inputText}>{formatDate(date)}</Text>
+            <Text
+            style={COMMON_STYLES.inputText}>{formatDate(date)}</Text>
           </View>
         </TouchableOpacity>  
       </View>    
-
-      <TouchableOpacity onPress={() => setShowDatePicker(prevState => !prevState)}>
         {showDatePicker && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -119,8 +127,7 @@ const AddActivityScreen = ({ navigation }) => {
             style={COMMON_STYLES.labelText}
           />
         )}
-      </TouchableOpacity>  
-
+     
         <View style={COMMON_STYLES.buttonsContainer}>
           <View style={COMMON_STYLES.buttonView}>
             <CustomButton title="Cancel" onPress={handleCancel} />

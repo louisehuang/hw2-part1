@@ -10,7 +10,7 @@ import {
   Keyboard,
 } from "react-native";
 import CustomButton from "../components/CustomButton";
-import { COMMON_STYLES, COLORS, LOCATION } from '../components/styles';
+import { COMMON_STYLES, COLORS } from '../components/styles';
 
 export default function StartScreen({ navigation }) {
   const [email, setEmail] = useState('');
