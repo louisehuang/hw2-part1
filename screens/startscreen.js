@@ -46,22 +46,17 @@ export default function StartScreen({ navigation }) {
   }
 
   function handleStart() {
+    checkEmailValidity();
+    checkPhoneNumberValidity();
+    
+  
     // Check if both email and phone number are valid and the button is clicked
     if (isValidEmail && isValidPhoneNumber && isStartButtonClicked) {
       navigation.navigate('Main'); // Navigate to the main page
-    } else {
-      // Show error messages for email and phone number
-      checkEmailValidity();
-      checkPhoneNumberValidity();
-      // Set the button as clicked
-      setIsStartButtonClicked(true);
     }
+    // Set the button as clicked
+    setIsStartButtonClicked(true);
   }
-  useEffect(() => {
-    if (isValidEmail && isValidPhoneNumber && isStartButtonClicked) {
-      navigation.navigate('Main');
-    }
-  }, [isValidEmail, isValidPhoneNumber, isStartButtonClicked]);
 
 
   return (
@@ -70,7 +65,7 @@ export default function StartScreen({ navigation }) {
         <Text style={COMMON_STYLES.labelText}>Email Address:</Text>
         <View style={COMMON_STYLES.inputContainer}>
           <TextInput
-            style={[styles.input, !isValidEmail && styles.invalidInput]}
+            style={[styles.input, !isValidEmail && (isStartButtonClicked ? styles.invalidInput : null)]}
             value={email}
             onChangeText={(text) => setEmail(text)}
             onBlur={checkEmailValidity}
@@ -81,7 +76,7 @@ export default function StartScreen({ navigation }) {
         <Text style={COMMON_STYLES.labelText}>Phone Number:</Text>
         <View style = {COMMON_STYLES.inputContainer} >
           <TextInput
-            style={[ styles.input, !isValidPhoneNumber && styles.invalidInput]}
+            style={[ styles.input, !isValidPhoneNumber && (isStartButtonClicked ? styles.invalidInput : null)]}
             value={phoneNumber}
             keyboardType="phone-pad"
             onChangeText={(text) => setPhoneNumber(text)}
@@ -97,7 +92,7 @@ export default function StartScreen({ navigation }) {
           <View style={COMMON_STYLES.buttonView}>
             <Button title="Start"
             style={{ backgroundColor: isStartButtonDisabled ? 'grey' : 'purple' }}  
-            
+
             onPress={handleStart} disabled={isStartButtonDisabled} />
           </View>
         </View>
