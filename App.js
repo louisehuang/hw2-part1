@@ -20,7 +20,7 @@ function MainTabNavigator() {
     <Tab.Navigator  screenOptions={{
       headerStyle: { backgroundColor: COLORS.header },
       headerTintColor: COLORS.headerText,
-      tabBarStyle: { backgroundColor: COLORS.header}, // Set tabBar background color
+      tabBarStyle: { backgroundColor: COLORS.header}, 
       tabBarActiveTintColor:COLORS.icon,
       tabBarinactiveTintColor: COLORS.grey,
       }}
@@ -47,11 +47,15 @@ export default function App() {
   return (
     <ActivityProvider>
        <NavigationContainer>
-        
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{
+          headerStyle: { backgroundColor: COLORS.header },
+          headerTintColor: COLORS.headerText,
+        }}>
           <Stack.Screen name="Start" component={StartScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }}  />
-          <Stack.Screen name="Add An Activity" component={AddActivityScreen} />
+          <Stack.Screen name="Add An Activity" component={AddActivityScreen} options={{ 
+            headerTitleStyle: { color: COLORS.headerText }, 
+          }}/>
         
           
         </Stack.Navigator>

@@ -78,7 +78,7 @@ const AddActivityScreen = ({ navigation }) => {
       <Text style={COMMON_STYLES.labelText}>Duration *</Text>
       <View style={COMMON_STYLES.inputContainer}>
         
-      <TextInput
+      <TextInput style ={COMMON_STYLES.inputText}
         value={duration}
         onChangeText={setDuration}
         keyboardType="numeric"
@@ -89,7 +89,7 @@ const AddActivityScreen = ({ navigation }) => {
       <View style={COMMON_STYLES.inputContainer}>
         <TouchableOpacity onPress={() => setShowDatePicker(true)}>
           <View style={styles.dateInput}>
-            <Text style={COMMON_STYLES.labelText}>{formatDate(date)}</Text>
+            <Text style={COMMON_STYLES.inputText}>{formatDate(date)}</Text>
           </View>
         </TouchableOpacity>  
       </View>    

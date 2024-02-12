@@ -65,7 +65,7 @@ export default function StartScreen({ navigation }) {
         <Text style={COMMON_STYLES.labelText}>Email Address:</Text>
         <View style={COMMON_STYLES.inputContainer}>
           <TextInput
-            style={[styles.input, !isValidEmail && (isStartButtonClicked ? styles.invalidInput : null)]}
+            style={[COMMON_STYLES.input, !isValidEmail && (isStartButtonClicked ? styles.invalidInput : null)]}
             value={email}
             onChangeText={(text) => setEmail(text)}
             onBlur={checkEmailValidity}
@@ -76,7 +76,7 @@ export default function StartScreen({ navigation }) {
         <Text style={COMMON_STYLES.labelText}>Phone Number:</Text>
         <View style = {COMMON_STYLES.inputContainer} >
           <TextInput
-            style={[ styles.input, !isValidPhoneNumber && (isStartButtonClicked ? styles.invalidInput : null)]}
+            style={[ COMMON_STYLES.input, !isValidPhoneNumber && (isStartButtonClicked ? styles.invalidInput : null)]}
             value={phoneNumber}
             keyboardType="phone-pad"
             onChangeText={(text) => setPhoneNumber(text)}
@@ -102,12 +102,6 @@ export default function StartScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  input: {
-    borderBottomColor: COLORS.test,
-    fontSize: 20,
-    color: COLORS.header,
-    paddingVertical: 5,
-  },
   errorText: {
     color: 'grey',
     fontSize: 16,

@@ -5,7 +5,10 @@ export const COLORS = {
     headerText: 'white',
     grey:'grey',
     button: 'firebrick',
-    icon:'gold'
+    icon:'gold',
+    inputText: 'mediumpurple'
+    
+
   
   };
   export const LOCATION = {
@@ -66,6 +69,13 @@ export const COLORS = {
         marginHorizontal:5,
         fontWeight: 'bold'
       },
+      inputText: {
+        color: COLORS.inputText,
+        fontSize: 15,
+        marginTop: 5,
+        marginHorizontal:5,
+        fontWeight: 'bold'
+      },
       activityContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -103,6 +113,12 @@ export const COLORS = {
         fontSize: 15,
         color:'mediumpurple',
         fontWeight: 'bold',
+      },
+      input: {
+        borderBottomColor: COLORS.test,
+        fontSize: 18,
+        color: COLORS.header,
+        paddingVertical: 5,
       },
     
     };
