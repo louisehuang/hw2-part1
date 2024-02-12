@@ -11,6 +11,9 @@ import { Entypo } from '@expo/vector-icons';
 const AllActivitiesScreen = () => {
   const navigation = useNavigation();
   const { activities } = useContext(ActivityContext); 
+  const specialActivities = activities.filter(
+    activity => (activity.type === 'Running' || activity.type === 'Weights') && activity.duration > 60
+  );
   // functions inside useEffect are called after the rendering
   useEffect(() => {
     if (navigation) { // Ensure navigation object exists before using it
@@ -36,8 +39,10 @@ const AllActivitiesScreen = () => {
       {activities.map((activity, index) => (
         <View key={index} style={styles.activityContainer}>
           <View style={styles.activityInfo}>
-            <Text style={styles.activityText}>{activity.type} {activity.duration}
-            //need to edit
+            <Text style={styles.activityText}>{activity.type} 
+            {specialActivities.includes(activity) && <Entypo name="warning" size={24} color="black" />}
+            
+            {activity.duration} mins
             {formatDate(activity.date)}
             </Text>
           </View>

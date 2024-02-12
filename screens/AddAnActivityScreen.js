@@ -10,7 +10,7 @@ const AddActivityScreen = ({ navigation }) => {
   const { activities, updateActivities } = useContext(ActivityContext);
   const [activityType, setActivityType] = useState('');
   const [duration, setDuration] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(null);
   const [open, setOpen] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   
@@ -27,14 +27,14 @@ const AddActivityScreen = ({ navigation }) => {
 
   const handleSave = () => {
     // Validate user's entries
-    if (!activityType || !duration || isNaN(duration) || duration <= 0) {
+    if (!activityType || !duration || isNaN(duration) || duration <= 0 || !date) {
       Alert.alert('Invalid Input', 'Please fill in all fields with valid data.');
       return;
     }
 
     // Save the new entry
     const newActivity = {
-      id: Date.now(), // Assuming unique ID based on timestamp
+      id: Date.now(),
       type: activityType,
       duration: parseInt(duration),
       date,
@@ -60,9 +60,9 @@ const AddActivityScreen = ({ navigation }) => {
     setDate(currentDate);
   };
 
-  const getWeekDate = (date) => {
-    const weekDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
-    return weekDay[date.getDay()];
+  const formatDate = (date) => {
+    const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+    return date ? date.toLocaleDateString(undefined, options) : 'Select date';
   };
 
   return (
@@ -91,7 +91,7 @@ const AddActivityScreen = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <TouchableOpacity onPress={() => setShowDatePicker(true)}>
           <View style={styles.dateInput}>
-            <Text>{getWeekDate(date)} {date.toLocaleDateString()}</Text>
+            <Text>{formatDate(date)}</Text>
           </View>
         </TouchableOpacity>  
       </View>    
@@ -99,7 +99,7 @@ const AddActivityScreen = ({ navigation }) => {
         {showDatePicker && (
           <DateTimePicker
             testID="dateTimePicker"
-            value={date}
+            value={date || new Date()}
             mode="date"
             is24Hour={true}
             display="inline"

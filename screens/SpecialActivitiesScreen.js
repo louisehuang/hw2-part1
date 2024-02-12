@@ -12,6 +12,7 @@ const SpecialActivitiesScreen = () => {
   const specialActivities = activities.filter(
     activity => (activity.type === 'Running' || activity.type === 'Weights') && activity.duration > 60
   );
+  
 
   useEffect(() => {
     navigation.setOptions({
@@ -29,17 +30,46 @@ const SpecialActivitiesScreen = () => {
     return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
   };
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
       {specialActivities.map((activity, index) => (
-        <View key={index}>
-          <Text>Type: {activity.type}</Text>
-          <Text>Duration: {activity.duration}</Text>
-          <Text>Date: {formatDate(activity.date)}</Text>
+        <View style={styles.activityContainer}>
+         <Text style={styles.activityText}>
+              {activity.type} <Entypo name="warning" size={24} color="black" /> {activity.duration} mins {formatDate(activity.date)}
+            </Text>
         </View>
       ))}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+
+  activityContainer: {
+    borderWidth: 1,
+    borderColor: 'white',
+    backgroundColor:'darkblue',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 10,
+    width: '90%',
+    backgroundColor: 'white',
+  },
+  activityInfo: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    padding: 5,
+    marginVertical: 5,
+  },
+  activityText: {
+    fontSize: 16,
+  },
+});
 
 
 export default SpecialActivitiesScreen;
