@@ -10,7 +10,7 @@ import {
   Keyboard,
 } from "react-native";
 import CustomButton from "../components/CustomButton";
-import { COMMON_STYLES, COLORS } from '../components/styles';
+import { COMMON_STYLES, COLORS, LOCATION } from '../components/styles';
 
 export default function StartScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -40,13 +40,11 @@ export default function StartScreen({ navigation }) {
   }, []);
 
   function checkEmailValidity() {
-    // Use a regular expression to check for a valid email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setIsValidEmail(emailRegex.test(email));
   }
 
   function checkPhoneNumberValidity() {
-    // Use a regular expression to check for a valid phone number (10 digits, no letters)
     const phoneNumberRegex = /^\d{10}$/;
     setIsValidPhoneNumber(phoneNumberRegex.test(phoneNumber));
   }
@@ -63,12 +61,16 @@ export default function StartScreen({ navigation }) {
   function handleStart() {
     checkEmailValidity();
     checkPhoneNumberValidity();
-    setIsStartButtonClicked(true);
+    if (!isStartButtonClicked && isValidEmail && isValidPhoneNumber) {
+      setIsStartButtonClicked(true);
+      navigation.navigate('Main');
+    }
     // Check if both email and phone number are valid and the button is clicked
     if (isValidEmail && isValidPhoneNumber && isStartButtonClicked) {
-      navigation.navigate('Main'); // Navigate to the main page
+      navigation.navigate('Main'); 
       
     }
+    setIsStartButtonClicked(true);
     
   }
 

@@ -53,7 +53,7 @@ export default function App() {
         }}>
           <Stack.Screen name="Start" component={StartScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }}/>
-          <Stack.Screen name="Add An Activity" component={AddActivityScreen} options={{ headerTitle: '', 
+          <Stack.Screen name="Add An Activity" component={AddActivityScreen} options={{  headerBackTitleVisible: false,
             headerTitleStyle: { color: COLORS.headerText }, 
           }}/>
         
