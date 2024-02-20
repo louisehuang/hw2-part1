@@ -18,19 +18,33 @@ export default function StartScreen({ navigation }) {
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true);
   const [isStartButtonDisabled, setIsStartButtonDisabled] = useState(true);
+  const [isStartButtonClicked, setIsStartButtonClicked] = useState(false);
 
   useEffect(() => {
     setIsStartButtonDisabled(!(email.trim() !== '' || phoneNumber.trim() !== ''));
   }, [email, phoneNumber]);
+  
+  useEffect(() => {
+    //dynamically adjust the layout when the keyboard is shown or hidden
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
+
+    });
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+     
+    });
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   function checkEmailValidity() {
-    // Use a regular expression to check for a valid email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setIsValidEmail(emailRegex.test(email));
   }
 
   function checkPhoneNumberValidity() {
-    // Use a regular expression to check for a valid phone number (10 digits, no letters)
     const phoneNumberRegex = /^\d{10}$/;
     setIsValidPhoneNumber(phoneNumberRegex.test(phoneNumber));
   }
@@ -41,50 +55,61 @@ export default function StartScreen({ navigation }) {
     setIsValidEmail(true);
     setIsValidPhoneNumber(true);
     setIsStartButtonDisabled(true);
+    setIsStartButtonClicked(false); 
   }
 
   function handleStart() {
     checkEmailValidity();
     checkPhoneNumberValidity();
-
-    if (isValidEmail && isValidPhoneNumber) {
-      // Data is valid, navigate to the next screen
-      navigation.navigate('AllActivities');
+    if (!isStartButtonClicked && isValidEmail && isValidPhoneNumber) {
+      setIsStartButtonClicked(true);
+      navigation.navigate('Main');
     }
+    // Check if both email and phone number are valid and the button is clicked
+    if (isValidEmail && isValidPhoneNumber && isStartButtonClicked) {
+      navigation.navigate('Main'); 
+      
+    }
+    setIsStartButtonClicked(true);
+    
   }
 
+
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: COLORS.background}]}>
+    <SafeAreaView style={COMMON_STYLES.container}>
       <TouchableOpacity activeOpacity={1} onPress={() => Keyboard.dismiss()} style={styles.innerContainer}>
-        <Text style={styles.labelText}>Email Address:</Text>
-        <View style={styles.inputContainer}>
+        <Text style={COMMON_STYLES.labelText}>Email Address:</Text>
+        <View style={COMMON_STYLES.inputContainer}>
           <TextInput
-            style={[styles.input, !isValidEmail && styles.invalidInput]}
+            style={[styles.input, !isValidEmail && (isStartButtonClicked ? styles.invalidInput : null)]}
             value={email}
             onChangeText={(text) => setEmail(text)}
             onBlur={checkEmailValidity}
           />
         </View>
-        {!isValidEmail && <Text style={styles.errorText}>Please Enter a Valid Email Address</Text>}
+        {isStartButtonClicked &&!isValidEmail && <Text style={styles.errorText}>Please Enter a Valid Email Address</Text>}
 
-        <Text style={styles.labelText}>Phone Number:</Text>
-        <View style = {styles.inputContainer} >
+        <Text style={COMMON_STYLES.labelText}>Phone Number:</Text>
+        <View style = {COMMON_STYLES.inputContainer} >
           <TextInput
-            style={[ styles.input, !isValidPhoneNumber && styles.invalidInput]}
+            style={[ styles.input, !isValidPhoneNumber && (isStartButtonClicked ? styles.invalidInput : null)]}
             value={phoneNumber}
             keyboardType="phone-pad"
             onChangeText={(text) => setPhoneNumber(text)}
             onBlur={checkPhoneNumberValidity}
           />
         </View>
-        {!isValidPhoneNumber && <Text style={styles.errorText}>Please Enter a Valid Phone Number</Text>}
+        {isStartButtonClicked && !isValidPhoneNumber && <Text style={styles.errorText}>Please Enter a Valid Phone Number</Text>}
 
-        <View style={styles.buttonsContainer}>
-          <View style={styles.buttonView}>
+        <View style={COMMON_STYLES.buttonsContainer}>
+          <View style={COMMON_STYLES.buttonView}>
             <CustomButton title="Reset" onPress={handleReset} />
           </View>
-          <View style={styles.buttonView}>
-            <Button title="Start" onPress={handleStart} disabled={isStartButtonDisabled} />
+          <View style={COMMON_STYLES.buttonView}>
+            <Button title="Start"
+             color={isStartButtonDisabled ? COLORS.grey : COLORS.text }  
+
+            onPress={handleStart} disabled={isStartButtonDisabled} />
           </View>
         </View>
       </TouchableOpacity>
@@ -93,31 +118,6 @@ export default function StartScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    //alignItems: 'center',
-    
-  },
-  buttonView: {
-    width: "35%",
-    margin: 5,
-  },
-  buttonsContainer: { flexDirection: "row" },
-  labelText: {
-    fontSize: 16,
-    margin:5,
-    color: COLORS.text
-  },
-  inputContainer: {
-    margin: 10,
-    padding: 10,
-    marginHorizontal: 5,
-    borderWidth: 2,
-    borderBlockColor: COLORS.text,
-    borderRadius: 7
-  },
-
   input: {
     borderBottomColor: COLORS.test,
     fontSize: 20,
