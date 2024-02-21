@@ -103,13 +103,23 @@ export default function StartScreen({ navigation }) {
 
         <View style={COMMON_STYLES.buttonsContainer}>
           <View style={COMMON_STYLES.buttonView}>
-            <CustomButton title="Reset" onPress={handleReset} />
-          </View>
-          <View style={COMMON_STYLES.buttonView}>
-            <Button title="Start"
-             color={isStartButtonDisabled ? COLORS.grey : COLORS.text }  
-
-            onPress={handleStart} disabled={isStartButtonDisabled} />
+          <Pressable
+              onPress={handleStart}
+              disabled={isStartButtonDisabled}
+              style={({ pressed }) => [
+                {
+                  backgroundColor: pressed ? COLORS.grey : isStartButtonDisabled ? COLORS.grey : COLORS.text,
+                  borderRadius: 8,
+                },
+                COMMON_STYLES.buttonView
+              ]}
+            >
+              {({ pressed }) => (
+                <Text style={styles.buttonText}>
+                  {pressed ? 'Start' : 'Start'}
+                </Text>
+              )}
+            </Pressable>
           </View>
         </View>
       </TouchableOpacity>
