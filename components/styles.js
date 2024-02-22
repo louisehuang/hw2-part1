@@ -93,7 +93,7 @@ export const COLORS = {
         padding: 8,
         marginBottom: 10,
         width: '90%',
-        justifyContent: 'flex-end',
+        justifyContent: "space-between",
         
       },
       iconInfo: {

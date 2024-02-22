@@ -2,7 +2,7 @@ import React, { useContext, useState,useEffect } from 'react';
 import { View, Button, Alert,TextInput,  StyleSheet,Text,TouchableOpacity,Keyboard } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { ActivityContext } from '../components/ActivityList';
+import { ActivityContext } from '../components/ActivityContext';
 import { COMMON_STYLES, COLORS } from '../components/styles';
 import CustomButton from '../components/CustomButton';
 
@@ -96,6 +96,7 @@ const AddActivityScreen = ({ navigation }) => {
         data={activityOptions}
         setSelected={setActivityType}
         defaultSelectedIndex={-1} 
+        textStyle={{ color: 'darkslateblue' }}
       />
       <Text style={COMMON_STYLES.labelText}>Duration *</Text>
       <View style={COMMON_STYLES.inputContainer}>

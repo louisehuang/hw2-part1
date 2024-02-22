@@ -1,31 +1,47 @@
-import React, { createContext, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { ActivityContext } from '../components/ActivityContext';
 
-// Activity context
-export const ActivityContext = createContext();
-
-// Activity provider
-export const ActivityProvider = ({ children }) => {
-  const [activities, setActivities] = useState([]);
-
-
-  // Function to update activities array
-  const updateActivities = (newActivity) => {
-    const formattedDate = formatDate(newActivity.date);
-    const activityWithFormattedDate = { ...newActivity, formattedDate };
-    setActivities([...activities, activityWithFormattedDate]);
-  };
-  const formatDate = (date) => {
-    const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-    const formattedDate = date.toLocaleDateString(undefined, options);
-    const parts = formattedDate.split(', ');
-  
-    // Join the parts without the comma
-    return parts.join(' ');
-  };
-
+export default function ActivityList({ type }) {
+    const { activities } = useContext(ActivityContext); 
+    const specialActivities = activities.filter(
+        (activity) => (activity.type === 'Running' || activity.type === 'Weights') && activity.duration > 60
+      );
   return (
-    <ActivityContext.Provider value={{ activities, updateActivities }}>
-      {children}
-    </ActivityContext.Provider>
-  );
-};
+    <View style={COMMON_STYLES.container}>
+       <View style={COMMON_STYLES.specialContainer}>
+        {activities.map((activity) => (
+          <View key={activity.id} style={COMMON_STYLES.activityContainer}>
+
+            <View style={COMMON_STYLES.iconInfo}>
+            
+            <Text style={COMMON_STYLES.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={15} color="gold" />}
+            </Text>
+            
+            
+            </View>
+
+            <View style={[COMMON_STYLES.activityInfoContainer,{ justifyContent: 'flex-end' }]}>
+              <View style={COMMON_STYLES.activityInfo}>
+                <Text style={COMMON_STYLES.activityInfoText}>
+                {activity.formattedDate}
+                </Text>
+              </View>
+              <View style={COMMON_STYLES.activityInfo}>
+                <Text style={COMMON_STYLES.activityInfoText}>
+                {activity.duration} mins
+                </Text>
+              </View>  
+        
+              
+            </View>
+            
+          </View>
+          
+        ))}
+      </View>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({})

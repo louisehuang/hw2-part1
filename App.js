@@ -8,7 +8,7 @@ import SpecialActivitiesScreen from './screens/SpecialActivitiesScreen';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import AddActivityScreen from './screens/AddAnActivityScreen';
-import { ActivityProvider } from './components/ActivityList'
+import { ActivityProvider } from './components/ActivityContext'
 import { COLORS } from './components/styles';
 
 
