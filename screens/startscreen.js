@@ -66,7 +66,7 @@ export default function StartScreen({ navigation }) {
     if (!isStartButtonClicked && isValidEmail && isValidPhoneNumber) {
       setIsStartButtonClicked(true);
       navigation.navigate('Main');
-      addDataToDatabase(email, phoneNumber);
+      //addDataToDatabase(email, phoneNumber);
     }
     // Check if both email and phone number are valid and the button is clicked
     if (isValidEmail && isValidPhoneNumber && isStartButtonClicked) {

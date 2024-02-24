@@ -19,10 +19,11 @@ const AllActivitiesScreen = () => {
     if (navigation) { // Ensure navigation object exists before using it
       navigation.setOptions({
         headerRight: () => (
-          <Button
-            title="Add"
+          <PressableButton
+          customStyle={COMMON_STYLES.addButton}
+            title="+"
             color= 'gold'
-            onPress={() => navigation.navigate('Add An Activity')}
+            onPressFunction={() => navigation.navigate('Add An Activity')}
           />
         ),
       });

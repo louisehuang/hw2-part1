@@ -146,5 +146,10 @@ export const COLORS = {
         color: COLORS.header,
         fontSize: 12,
       },
+      add: {
+        backgroundColor: null,
+        paddingRight: 20,
+        color: 'gold',
+      },
     
     };
