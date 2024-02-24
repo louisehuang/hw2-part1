@@ -95,8 +95,9 @@ const AddActivityScreen = ({ navigation }) => {
       <SelectList
         data={activityOptions}
         setSelected={setActivityType}
+        placeholder="Select An Activity"
         defaultSelectedIndex={-1} 
-        textStyle={{ color: 'darkslateblue' }}
+        dropdownTextStyles={COMMON_STYLES.dropdownText}
       />
       <Text style={COMMON_STYLES.labelText}>Duration *</Text>
       <View style={COMMON_STYLES.inputContainer}>

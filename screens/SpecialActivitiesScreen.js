@@ -17,7 +17,7 @@ const SpecialActivitiesScreen = () => {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          title='Add'
+          title='+'
           color='gold'
           onPress={() => navigation.navigate('Add An Activity')}
         />

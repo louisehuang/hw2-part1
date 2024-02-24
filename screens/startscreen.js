@@ -10,6 +10,7 @@ import {
   Keyboard,
 } from "react-native";
 import CustomButton from "../components/CustomButton";
+import PressableButton from "../components/PressableButton";
 import { COMMON_STYLES, COLORS, LOCATION } from '../components/styles';
 
 
@@ -70,7 +71,7 @@ export default function StartScreen({ navigation }) {
     // Check if both email and phone number are valid and the button is clicked
     if (isValidEmail && isValidPhoneNumber && isStartButtonClicked) {
       navigation.navigate('Main'); 
-      addDataToDatabase(email, phoneNumber);
+      //addDataToDatabase(email, phoneNumber);
       
       
     }
@@ -106,16 +107,22 @@ export default function StartScreen({ navigation }) {
   
           <View style={COMMON_STYLES.buttonsContainer}>
             <View style={COMMON_STYLES.buttonView}>
-              <CustomButton title="Reset" onPress={handleReset} />
-            </View>
-            <View style={COMMON_STYLES.buttonView}>
-              <Button title="Start"
-               color={isStartButtonDisabled ? COLORS.grey : COLORS.text }  
-  
-              onPress={handleStart} disabled={isStartButtonDisabled} />
+              <PressableButton
+                customStyle={COMMON_STYLES.resetButton}
+                onPressFunction={handleReset}
+                >
 
-              
+              <Text style={COMMON_STYLES.buttonText}>Reset</Text>
+              </PressableButton>
+         
             </View>
+            <PressableButton
+              customStyle={styles.startButton}
+              onPressFunction={handleStart}
+              isDisabled={!email && !phoneNumber}
+            >
+            <Text style={COMMON_STYLES.buttonText}>Start</Text>
+            </PressableButton>
           </View>
         </TouchableOpacity>
       </SafeAreaView>

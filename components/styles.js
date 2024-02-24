@@ -134,5 +134,17 @@ export const COLORS = {
         color: COLORS.header,
         paddingVertical: 5,
       },
+      resetButton: {
+        backgroundColor: COLORS.button,
+        width: "45%",
+      },
+      buttonText: {
+        color: COLORS.button,
+        fontSize: 18,
+      },
+      dropdownText: {
+        color: COLORS.header,
+        fontSize: 12,
+      },
     
     };

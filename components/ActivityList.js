@@ -43,5 +43,3 @@ export default function ActivityList({ type }) {
     </View>
   )
 }
-
-const styles = StyleSheet.create({})

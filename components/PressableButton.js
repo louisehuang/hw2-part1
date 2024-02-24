@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet } from "react-native";
 import React from "react";
+import { COLORS, LOCATION } from '../components/styles';
 
 export default function PressableButton({
   customStyle,
@@ -16,7 +17,7 @@ export default function PressableButton({
         isDisabled && styles.disabled,
         pressed && styles.pressed,
       ]}
-      android_ripple={{ color: androidRippleColor }}
+      android_ripple={{ color: "rgba(0, 0, 0, 0.2)"}}
       disabled={isDisabled}
     >
       {children}
@@ -35,5 +36,6 @@ const styles = StyleSheet.create({
     },
     disabled:{
       opacity: 0.5,
-    }
+      backgroundColor:COLORS.grey,
+    },
   });
