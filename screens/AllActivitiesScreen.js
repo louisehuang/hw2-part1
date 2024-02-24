@@ -21,10 +21,12 @@ const AllActivitiesScreen = () => {
         headerRight: () => (
           <PressableButton
           customStyle={COMMON_STYLES.addButton}
-            title="+"
-            color= 'gold'
             onPressFunction={() => navigation.navigate('Add An Activity')}
-          />
+          >
+          <Text style={appStyles.addTextStyle}>+</Text>
+          </PressableButton>
+          
+          
         ),
       });
     }
