@@ -11,8 +11,6 @@ import {
 } from "react-native";
 import CustomButton from "../components/CustomButton";
 import { COMMON_STYLES, COLORS, LOCATION } from '../components/styles';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
-import { database } from '../firebase-files/firebaseSetup';
 
 
 export default function StartScreen({ navigation }) {
@@ -79,20 +77,6 @@ export default function StartScreen({ navigation }) {
     setIsStartButtonClicked(true);
     
   }
-  async function addDataToDatabase(email, phoneNumber) {
-    console.log("Adding data to the database:", email, phoneNumber); // Add this line
-    try {
-        // Add a document to a "users" collection with the entered email and phone number
-        await addDoc(collection(database, 'users'), {
-            email: email,
-            phoneNumber: phoneNumber
-        });
-        console.log('Data added successfully');
-    } catch (error) {
-        console.error('Error adding data:', error);
-    }
-}
-
 
     return (
       <SafeAreaView style={COMMON_STYLES.container}>
