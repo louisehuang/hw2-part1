@@ -4,7 +4,8 @@ import { SelectList } from 'react-native-dropdown-select-list'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { ActivityContext } from '../components/ActivityContext';
 import { COMMON_STYLES, COLORS } from '../components/styles';
-import CustomButton from '../components/CustomButton';
+import PressableButton from '../components/PressableButton';
+import Checkbox from "expo-checkbox";
 
 const AddActivityScreen = ({ navigation }) => {
   const {updateActivities } = useContext(ActivityContext);
@@ -129,13 +130,36 @@ const AddActivityScreen = ({ navigation }) => {
             style={COMMON_STYLES.labelText}
           />
         )}
+
+        <View >
+          <Text style={styles.errorText}>
+            This item is marked as special. 
+            Select the checkbox if you would like to approve it.
+          </Text>
+          <Checkbox
+            style={styles.checkbox}
+            value={isChecked}
+            onValueChange={setChecked}
+          />
+        </View>
      
         <View style={COMMON_STYLES.buttonsContainer}>
           <View style={COMMON_STYLES.buttonView}>
-            <CustomButton title="Cancel" onPress={handleCancel} />
+          <PressableButton
+              customStyle={COMMON_STYLES.saveButton}
+              onPressFunction={handleCancel}
+            >
+              <Text style={styles.buttonText}>Cancel</Text>
+            </PressableButton>
         </View>
           <View style={COMMON_STYLES.buttonView}></View>
-            <Button title="Save" onPress={handleSave} color={ COLORS.text}/>
+          <PressableButton
+              customStyle={COMMON_STYLES.resetButton}
+              onPressFunction={handleSave}
+            >
+              <Text style={styles.buttonText}>Save</Text>
+            </PressableButton>
+          
       </View>
       </View>
 
