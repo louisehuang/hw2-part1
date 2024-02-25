@@ -152,5 +152,13 @@ export const COLORS = {
         fontSize: 18,
         color:'white'
       },
+      //actvitypressable
+      pressableContainer:{
+        flexDirection: 'row',
+        borderColor: COLORS.background,
+        backgroundColor:'transparent'
+          
+        },
+      
     
     };

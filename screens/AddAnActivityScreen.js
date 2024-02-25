@@ -65,7 +65,7 @@ const AddActivityScreen = ({ navigation }) => {
       type: activityType,
       duration: parseInt(duration),
       date:date.toDateString(),
-      special: validateSpecial({
+      special: isChecked || validateSpecial({
         type: activityType,
         duration: duration,
       }),

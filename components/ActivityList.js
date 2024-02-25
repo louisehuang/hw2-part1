@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import React, { useState, useEffect } from 'react';
-import { ActivityContext } from "./ActivityContext";
+import { Entypo } from '@expo/vector-icons';
 import { COMMON_STYLES } from './styles';
 import PressableButton from './PressableButton';
 import { database } from "../firebase-files/firebaseSetup";
@@ -31,20 +31,20 @@ const ActivityList = ({ type }) => {
     return (
       // specail activity do not have icon fix it
     <View style={COMMON_STYLES.container}>
-       <PressableButton
-            customStyle={COMMON_STYLES.specialContainer}
-            onPressFunction={() => {
-              console.log("Pressed");
-            }}
-          >
+       <View style={COMMON_STYLES.specialContainer}>
+      
         {activities.map(activity => (
+           <PressableButton 
+           customStyle={COMMON_STYLES.pressableContainer}
+           onPress={() => console.log('Pressed:')}>
           <View key={activity.id} style={COMMON_STYLES.activityContainer}>
+
             <Text style={COMMON_STYLES.activityText}>
-              {activity.type} {type === 'special' && <Entypo name="warning" size={15} color="gold" />}
+              {activity.type} {activity.special && <Entypo name="warning" size={15} color="gold" />}
             </Text>
             <View style={COMMON_STYLES.activityInfo}>
               <Text style={COMMON_STYLES.activityInfoText}>
-                {activity.formattedDate}
+                {activity.date}
               </Text>
             </View>
             <View style={COMMON_STYLES.activityInfo}>
@@ -53,8 +53,9 @@ const ActivityList = ({ type }) => {
               </Text>
             </View>
           </View>
+          </PressableButton>
         ))}
-      </PressableButton>
+        </View>
       </View>
     );
   };
