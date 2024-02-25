@@ -1,18 +1,15 @@
 import { collection, addDoc, doc, deleteDoc, setDoc } from "firebase/firestore";
 import { database } from "./firebaseSetup";
 
-export async function addActivityToDB(activityData) {
+export async function addToDB(activityData) {
   try {
-    const docRef = await addDoc(
-      collection(database, "activities"),
-      activityData
-    );
+    const docRef = await addDoc(collection(database, "activities"),activityData);
   } catch (err) {
     console.log(err.code);
   }
 }
 
-export async function deleteActivityFromDB(id) {
+export async function deleteFromDB(id) {
   try {
     await deleteDoc(doc(database, "activities", id));
   } catch (err) {
@@ -20,7 +17,7 @@ export async function deleteActivityFromDB(id) {
   }
 }
 
-export async function updateActivityInDB(id, activityData) {
+export async function updateInDB(id, activityData) {
   try {
     await setDoc(doc(database, "activities", id), activityData);
   } catch (err) {

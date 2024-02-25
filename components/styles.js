@@ -162,5 +162,9 @@ export const COLORS = {
           
         },
       
+      deleteButton: {
+        backgroundColor: null,
+        paddingRight: 20,
+      }
     
     };

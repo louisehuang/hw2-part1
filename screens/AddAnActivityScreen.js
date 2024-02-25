@@ -2,20 +2,41 @@ import React, { useContext, useState,useEffect } from 'react';
 import { View, Alert,TextInput,  StyleSheet,Text,TouchableOpacity,Keyboard } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { ActivityContext } from '../components/ActivityContext';
 import { COMMON_STYLES, COLORS } from '../components/styles';
-import {
-  addActivityToDB, deleteActivityFromDB} from "../firebase-files/firebaseHelper";
+import {addToDB, deleteFromDB,updateInDB} from "../firebase-files/firebaseHelper";
 import PressableButton from '../components/PressableButton';
 import Checkbox from "expo-checkbox";
 
-const AddActivityScreen = ({ navigation }) => {
-  const {updateActivities } = useContext(ActivityContext);
+const AddActivityScreen = ({ route,navigation }) => {
   const [activityType, setActivityType] = useState('');
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isChecked, setChecked] = useState(false);
+  const { editMode, activityToEdit } = route.params;
+
+  useEffect(() => {
+    if (editMode) {
+      const fetchActivity = async () => {
+        try {
+          const docRef = doc(database, "activities", activityToEdit.id);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const activityData = docSnap.data();
+            setActivityType(activityData.type);
+            setDuration(activityData.duration.toString());
+            setDate(new Date(activityData.date));
+            setSpecial(activityData.special);
+          } else {
+            console.log("No such document!");
+          }
+        } catch (err) {
+          console.error("Error getting document:", err);
+        }
+      };
+      fetchActivity();
+    }
+  }, [editMode, activityToEdit]);
   
   useEffect(() => {
     //dynamically adjust the layout when the keyboard is shown or hidden
@@ -61,7 +82,7 @@ const AddActivityScreen = ({ navigation }) => {
 
     // Save the new entry
     const newActivity = {
-      id: Date.now(),
+      //id: editMode ? activityToEdit.id : Date.now(),
       type: activityType,
       duration: parseInt(duration),
       date:date.toDateString(),
@@ -73,7 +94,7 @@ const AddActivityScreen = ({ navigation }) => {
 
     //updateActivities(newActivity);
     //add to firebase
-    addActivityToDB(newActivity);
+    addToDB(newActivity);
 
     navigation.goBack();
   };
