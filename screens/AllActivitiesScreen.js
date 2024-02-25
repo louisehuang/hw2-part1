@@ -5,7 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { ActivityContext } from '../components/ActivityContext'; 
 import { Entypo } from '@expo/vector-icons';
 import { COMMON_STYLES } from "../components/styles";
-
+import PressableButton from "../components/PressableButton";
+import Act from '../components/Act';
 
 
 const AllActivitiesScreen = () => {
@@ -23,7 +24,7 @@ const AllActivitiesScreen = () => {
           customStyle={COMMON_STYLES.addButton}
             onPressFunction={() => navigation.navigate('Add An Activity')}
           >
-          <Text style={appStyles.addTextStyle}>+</Text>
+          <Text style={COMMON_STYLES.addButton}>+</Text>
           </PressableButton>
           
           
@@ -36,37 +37,9 @@ const AllActivitiesScreen = () => {
 
   return (
     <View style={COMMON_STYLES.container}>
-       <View style={COMMON_STYLES.specialContainer}>
-        {activities.map((activity) => (
-          <View key={activity.id} style={COMMON_STYLES.activityContainer}>
-
-            <View style={COMMON_STYLES.iconInfo}>
-            
-            <Text style={COMMON_STYLES.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={15} color="gold" />}
-            </Text>
-            
-            
-            </View>
-
-            <View style={[COMMON_STYLES.activityInfoContainer,{ justifyContent: 'flex-end' }]}>
-              <View style={COMMON_STYLES.activityInfo}>
-                <Text style={COMMON_STYLES.activityInfoText}>
-                {activity.formattedDate}
-                </Text>
-              </View>
-              <View style={COMMON_STYLES.activityInfo}>
-                <Text style={COMMON_STYLES.activityInfoText}>
-                {activity.duration} mins
-                </Text>
-              </View>  
-        
-              
-            </View>
-            
-          </View>
-          
-        ))}
-      </View>
+      <Act type ="all"/>
+      
+      
     </View>
    
   );

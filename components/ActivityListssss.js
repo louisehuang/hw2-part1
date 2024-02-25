@@ -1,13 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import React from 'react'
 import { collection, query, where, onSnapshot } from "firebase/firestore";
-import {database} from "..firebase-files/firebaseSetup"
+import {database} from "../firebase-files/firebaseSetup"
 import { Entypo } from '@expo/vector-icons';
 import { COMMON_STYLES } from "../components/styles";
 import PressableButton from "./PressableButton";
 
 
-export default function ActivityList({ type, navigation }) {
+export default function ActivitiesList({ type, navigation }) {
     const [activities, setActivities] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function ActivityList({ type, navigation }) {
     }
 
     // Subscribe to the query
-    const unsubscribe = onSnapshot(queryActivities, (snapshot) => {
+    const unsub = onSnapshot(queryActivities, (snapshot) => {
       const fetchedActivities = [];
       snapshot.forEach((doc) => {
         fetchedActivities.push({ id: doc.id, ...doc.data() });
@@ -34,14 +34,14 @@ export default function ActivityList({ type, navigation }) {
       setActivities(fetchedActivities);
     });
 
-    return () => unsubscribe();
+    return () => unsub();
   }, [type]); 
 
   // Handle the edit activity press
-  function handleEdit(item) {
+  function handleEdit(activity) {
     navigation.navigate("Add An Activity", {
       editMode: true,
-      activityId: item.id,
+      activityId: activity.id,
     });
   }
 
@@ -50,15 +50,15 @@ export default function ActivityList({ type, navigation }) {
       
       <FlatList
         data={activities}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
+        keyExtractor={(activity) => activity.id}
+        renderItem={({ activity }) => (
           <PressableButton
             customStyle={COMMON_STYLES.resetButton}
-            onPressFunction={() => handleEdit(item)}
+            onPressFunction={() => handleEdit(activity)}
           >
             <Text style={COMMON_STYLES.activityText}>{item.type}</Text>
           
-          <View style={COMMON_STYLES.specialContainercontainer}>
+          <View style={COMMON_STYLES.specialContainer}>
             <View style={COMMON_STYLES.iconInfo}>
             {item.special && <Entypo name="warning" size={15} color="gold" />}
             </View>
@@ -71,7 +71,7 @@ export default function ActivityList({ type, navigation }) {
               
             <View style={COMMON_STYLES.activityInfo}>  
               <Text style={COMMON_STYLES.activityInfoText}>
-                {item.duration} min</Text>
+                {activity.duration} min</Text>
               </View>  
             </View>
           </PressableButton>

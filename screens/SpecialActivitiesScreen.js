@@ -1,26 +1,24 @@
 import React, { useContext, useEffect } from 'react';
 import { View,Text, Button} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ActivityContext } from '../components/ActivityContext'; 
 import { COMMON_STYLES } from "../components/styles";
 import { Entypo } from '@expo/vector-icons';
+import PressableButton from "../components/PressableButton";
+import Act from '../components/Act';
 
 const SpecialActivitiesScreen = () => {
   const navigation = useNavigation();
-  const { activities } = useContext(ActivityContext); 
-  const specialActivities = activities.filter(
-    activity => (activity.type === 'Running' || activity.type === 'Weights') && activity.duration > 60
-  );
   
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button
-          title='+'
-          color='gold'
-          onPress={() => navigation.navigate('Add An Activity')}
-        />
+        <PressableButton
+          customStyle={COMMON_STYLES.addButton}
+            onPressFunction={() => navigation.navigate('Add An Activity')}
+          >
+          <Text>+</Text>
+        </PressableButton>
       ),
     });
   }, [navigation]);
@@ -28,28 +26,8 @@ const SpecialActivitiesScreen = () => {
   return (
 
     <View style={COMMON_STYLES.container}>
-      <View style={COMMON_STYLES.specialContainer}>
-        {specialActivities.map((activity) => (
-          <View key={activity.id} style={COMMON_STYLES.activityContainer}>
-          <Text style={COMMON_STYLES.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={15} color="gold" />}
-            </Text>
-          <View style={COMMON_STYLES.activityInfo}>
-            <Text style={COMMON_STYLES.activityInfoText}>     
-              {activity.formattedDate}
-            </Text>
-          </View>
-
-          <View style={COMMON_STYLES.activityInfo}>
-              <Text style={COMMON_STYLES.activityInfoText}>
-                {activity.duration} mins 
-                </Text>
-          </View>
-
-          
-
-        </View>
-      ))}
-      </View>
+      <Act type ="specal"/>
+      
       
     </View>
   );

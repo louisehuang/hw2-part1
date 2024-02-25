@@ -13,6 +13,7 @@ const AddActivityScreen = ({ navigation }) => {
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [isChecked, setChecked] = useState(false);
   
   useEffect(() => {
     //dynamically adjust the layout when the keyboard is shown or hidden

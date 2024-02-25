@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   StyleSheet,
   Text,
   TextInput,
@@ -9,7 +8,6 @@ import {
   TouchableOpacity,
   Keyboard,
 } from "react-native";
-import CustomButton from "../components/CustomButton";
 import PressableButton from "../components/PressableButton";
 import { COMMON_STYLES, COLORS, LOCATION } from '../components/styles';
 

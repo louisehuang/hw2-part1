@@ -146,10 +146,11 @@ export const COLORS = {
         color: COLORS.header,
         fontSize: 12,
       },
-      add: {
+      addButton: {
         backgroundColor: null,
         paddingRight: 20,
-        color: 'gold',
+        fontSize: 18,
+        color:'white'
       },
     
     };
