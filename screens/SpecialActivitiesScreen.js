@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { View,Text, Button} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { COMMON_STYLES } from "../components/styles";
-import { Entypo } from '@expo/vector-icons';
+
 import PressableButton from "../components/PressableButton";
 import ActivityList from '../components/ActivityList';
 
@@ -26,7 +26,7 @@ const SpecialActivitiesScreen = () => {
   return (
 
     <View style={COMMON_STYLES.container}>
-      <ActivityList type ="specal"/>
+      <ActivityList type ="special"/>
       
       
     </View>

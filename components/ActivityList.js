@@ -6,7 +6,7 @@ import PressableButton from './PressableButton';
 import { database } from "../firebase-files/firebaseSetup";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 
-const ActivityList = ({ type }) => {
+const ActivityList = ({ type, navigation }) => {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
@@ -27,6 +27,9 @@ const ActivityList = ({ type }) => {
     return () => unsub();
   }, [type]);
 
+  function handleEdit() {
+    navigation.navigate("Add An Activity", { editMode: true });
+  }
 
     return (
       // specail activity do not have icon fix it
@@ -36,7 +39,7 @@ const ActivityList = ({ type }) => {
         {activities.map(activity => (
            <PressableButton 
            customStyle={COMMON_STYLES.pressableContainer}
-           onPress={() => console.log('Pressed:')}>
+           onPressFunction={handleEdit}>
           <View key={activity.id} style={COMMON_STYLES.activityContainer}>
 
             <Text style={COMMON_STYLES.activityText}>

@@ -93,6 +93,7 @@ export const COLORS = {
         padding: 8,
         marginBottom: 10,
         width: '90%',
+        marginLeft: 10,
         justifyContent: "space-between",
         
       },
@@ -106,7 +107,8 @@ export const COLORS = {
       },
       activityInfoContainer:{
         flexDirection: 'row',
-        backgroundColor:COLORS.header,
+        backgroundColor:COLORS.header, 
+        columnGap: 5,
 
       },
       activityInfo: {
