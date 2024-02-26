@@ -27,7 +27,7 @@ const AddActivityScreen = ({ route,navigation }) => {
           customStyle={COMMON_STYLES.deleteButton}
           onPressFunction={handleDelete}
         >
-          {editMode && <AntDesign name="delete" size={24} color="white" />}
+          {editMode && <AntDesign name="delete" size={20} color="white" />}
         </PressableButton>
       ),
     });
@@ -87,28 +87,25 @@ const AddActivityScreen = ({ route,navigation }) => {
     if ( !activityType ||!duration || isNaN(duration) || duration <= 0 || !date) {
       Alert.alert('Invalid Input', 'Please check you input values.');
       return;
-    }else{if (editMode) {
+    }
+    if (editMode) {
       handleEditSave();
+      navigation.goBack(); // Navigate back after handling edit save
+      return; // Exit the function to prevent creating a new activity
     }
-
-    }
-
+  
     // Save the new entry
     const newActivity = {
-      //id: Date.now(),
       type: activityType,
       duration: parseInt(duration),
-      date:date.toDateString(),
+      date: date.toDateString(),
       special: isChecked || validateSpecial({
         type: activityType,
         duration: duration,
       }),
     };
-
-    //updateActivities(newActivity);
-    //add to firebase
+  
     addToDB(newActivity);
-
     navigation.goBack();
   };
 
@@ -156,8 +153,7 @@ const AddActivityScreen = ({ route,navigation }) => {
               };
               updateInDB(activityToEdit, updatedActivity);
             } else {
-              // If the checkbox is not checked or the activity is not special,
-              // update the activity as is
+          
               const updatedActivity = {
                 type: activityType,
                 duration: parseInt(duration),
