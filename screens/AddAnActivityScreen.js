@@ -145,7 +145,6 @@ const AddActivityScreen = ({ route,navigation }) => {
             //update activities on click checkbox or not
             if (isChecked && special) {
               const updatedActivity = {
-                id: activityToEdit,
                 type: activityType,
                 duration: parseInt(duration),
                 date: date.toDateString(),
