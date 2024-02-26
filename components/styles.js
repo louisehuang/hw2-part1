@@ -53,12 +53,18 @@ export const COLORS = {
         marginHorizontal: 20,
         marginVertical: 20,
         marginRight: 0,
-        width:'80%',
-        flexDirection: "row" },
-      buttonView: {
-        width: "35%",
-        margin: 5,
+        //width:'80%',
+        flexDirection: "row", 
+        justifyContent: "space-around",
+        columnGap: 20
+        
+
       },
+      buttonView: {
+        width: "45%",
+
+      },
+
       topView: {
         flex: 1,
         alignItems: LOCATION.center,
@@ -69,6 +75,7 @@ export const COLORS = {
         flex: 1,
         justifyContent: LOCATION.center,
         alignItems: LOCATION.center,
+        
       },
       labelText: {
         color: COLORS.text,
@@ -97,14 +104,6 @@ export const COLORS = {
         marginLeft: 10,
         justifyContent: "space-between",
         
-      },
-      iconInfo: {
-        flexDirection: 'row',
-        backgroundColor: COLORS.header,
-        padding: 5,
-        marginHorizontal:5,
-        marginRight: 3,
-        justifyContent: LOCATION.top
       },
       activityInfoContainer:{
         flexDirection: 'row',
@@ -140,11 +139,16 @@ export const COLORS = {
       },
       resetButton: {
         backgroundColor: COLORS.button,
-        width: "45%",
+        width: "95%",
+      },
+      startButton: {
+        backgroundColor: "darkslateblue",
+        width: "40%",
       },
       buttonText: {
-        color: COLORS.button,
+        color: "white",
         fontSize: 18,
+        textAlign: "center",
       },
       dropdownText: {
         color: COLORS.header,
@@ -163,6 +167,14 @@ export const COLORS = {
         backgroundColor:'transparent'
           
         },
+      cancelButton: {
+        backgroundColor: COLORS.button,
+        width: "45%",
+      },
+      saveButton: {
+        backgroundColor: "darkslateblue",
+        width: "45%",
+      },
       
       deleteButton: {
         backgroundColor: null,

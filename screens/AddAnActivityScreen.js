@@ -2,7 +2,7 @@ import React, { useContext, useState,useEffect } from 'react';
 import { View, Alert,TextInput,  StyleSheet,Text,TouchableOpacity,Keyboard } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list'
 import { database } from "../firebase-files/firebaseSetup";
-import { COMMON_STYLES, COLORS } from '../components/styles';
+import { COMMON_STYLES, COLORS,LOCATION } from '../components/styles';
 import {addToDB, deleteFromDB,updateInDB} from "../firebase-files/firebaseHelper";
 import PressableButton from '../components/PressableButton';
 import { AntDesign } from "@expo/vector-icons";
@@ -216,20 +216,20 @@ const AddActivityScreen = ({ route,navigation }) => {
         
      
         <View style={COMMON_STYLES.buttonsContainer}>
-          <View style={COMMON_STYLES.buttonView}>
+          {/* <View style={COMMON_STYLES.buttonViewA}> */}
           <PressableButton
-              customStyle={COMMON_STYLES.saveButton}
+              customStyle={COMMON_STYLES.cancelButton}
               onPressFunction={handleCancel}
             >
-              <Text style={styles.buttonText}>Cancel</Text>
+              <Text style={ COMMON_STYLES.buttonText}>Cancel</Text>
             </PressableButton>
-        </View>
-          <View style={COMMON_STYLES.buttonView}></View>
+        {/* </View>
+          <View style={COMMON_STYLES.buttonViewA}></View> */}
           <PressableButton
-              customStyle={COMMON_STYLES.resetButton}
+              customStyle={COMMON_STYLES.saveButton}
               onPressFunction={handleSave}
             >
-              <Text style={styles.buttonText}>Save</Text>
+              <Text style={COMMON_STYLES.buttonText}>Save</Text>
             </PressableButton>
           
       </View>
@@ -256,6 +256,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width:'90%',
     justifyContent: "space-between",
+  },
+  buttonText: {
+    color: COLORS.headerText,
+    fontSize: 18,
+    textAlign: LOCATION.center,
   }
   
 });

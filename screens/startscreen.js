@@ -103,6 +103,7 @@ export default function StartScreen({ navigation }) {
           </View>
           {isStartButtonClicked && !isValidPhoneNumber && <Text style={styles.errorText}>Please Enter a Valid Phone Number</Text>}
   
+  
           <View style={COMMON_STYLES.buttonsContainer}>
             <View style={COMMON_STYLES.buttonView}>
               <PressableButton
@@ -115,7 +116,7 @@ export default function StartScreen({ navigation }) {
          
             </View>
             <PressableButton
-              customStyle={styles.startButton}
+              customStyle={COMMON_STYLES.startButton}
               onPressFunction={handleStart}
               isDisabled={!email && !phoneNumber}
             >
@@ -139,4 +140,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 5,
   },
+
 });
