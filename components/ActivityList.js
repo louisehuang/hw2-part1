@@ -28,7 +28,7 @@ const ActivityList = ({ type, navigation }) => {
   }, [type]);
 
   function handleEdit(activity) {
-    navigation.navigate("Add An Activity", { editMode: true, activityId:activity.id,});
+    navigation.navigate("Add An Activity", { editMode: true, activityToEdit:activity.id,});
   }
 
     return (
@@ -39,7 +39,7 @@ const ActivityList = ({ type, navigation }) => {
         {activities.map(activity => (
            <PressableButton 
            customStyle={COMMON_STYLES.pressableContainer}
-           onPressFunction={handleEdit(activity)}>
+           onPressFunction={() => handleEdit(activity)}>
           <View key={activity.id} style={COMMON_STYLES.activityContainer}>
 
             <Text style={COMMON_STYLES.activityText}>

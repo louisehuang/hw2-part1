@@ -1,11 +1,12 @@
 import React, { useContext, useState,useEffect } from 'react';
 import { View, Alert,TextInput,  StyleSheet,Text,TouchableOpacity,Keyboard } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list'
-
+import { database } from "../firebase-files/firebaseSetup";
 import { COMMON_STYLES, COLORS } from '../components/styles';
 import {addToDB, deleteFromDB,updateInDB} from "../firebase-files/firebaseHelper";
 import PressableButton from '../components/PressableButton';
 import { AntDesign } from "@expo/vector-icons";
+import { doc, getDoc } from "firebase/firestore";
 import Checkbox from "expo-checkbox";
 import DropDownPicker from '../components/DropDownPicker';
 import DateTimePicker from '../components/DateTimePicker'
@@ -14,6 +15,7 @@ const AddActivityScreen = ({ route,navigation }) => {
   const [activityType, setActivityType] = useState('');
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(null);
+  const [special, setSpecial] = useState(false);
   const [isChecked, setChecked] = useState(false);
   const { editMode, activityToEdit } = route.params;
 
@@ -30,11 +32,13 @@ const AddActivityScreen = ({ route,navigation }) => {
       ),
     });
   }, [editMode]);
+
+
   useEffect(() => {
     if (editMode) {
       const fetchActivity = async () => {
         try {
-          const docRef = doc(database, "activities", activityToEdit.id);
+          const docRef = doc(database, "activities", activityToEdit);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
             const activityData = docSnap.data();
@@ -115,7 +119,7 @@ const AddActivityScreen = ({ route,navigation }) => {
         {
           text: "Yes",
           onPress: () => {
-            deleteActivityFromDB(activityId);
+            deleteFromDB(activityId);
             navigation.goBack();
           },
         },
@@ -130,10 +134,6 @@ const AddActivityScreen = ({ route,navigation }) => {
     navigation.goBack();
   };
 
-  const onChangeActivity = (activityType) => {
-
-    setActivityType(activityType)
-  };
 
   // const onChangeDate = (event, selectedDate) => {
   //   const currentDate = selectedDate || date || new Date();

@@ -24,19 +24,19 @@ const SpecialActivitiesScreen = () => {
     });
   }, [navigation]);
 
-  useEffect(() => {
-    navigation.setOptions({
-      title: editMode ? "Edit" : "Add an Activity",
-      headerRight: () => (
-        <PressableButton
-          customStyle={COMMON_STYLES.deleteButton}
-          onPressFunction={handleDelete}
-        >
-          {editMode && <AntDesign name="delete" size={24} color="white" />}
-        </PressableButton>
-      ),
-    });
-  }, [editMode]);
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     //title: editMode ? "Edit" : "Add an Activity",
+  //     headerRight: () => (
+  //       <PressableButton
+  //         customStyle={COMMON_STYLES.deleteButton}
+  //         onPressFunction={handleDelete}
+  //       >
+  //         {editMode && <AntDesign name="delete" size={24} color="white" />}
+  //       </PressableButton>
+  //     ),
+  //   });
+  // }, [editMode]);
   
 
   return (
