@@ -17,25 +17,12 @@ const SpecialActivitiesScreen = () => {
           customStyle={COMMON_STYLES.addButton}
             onPressFunction={() => navigation.navigate('Add An Activity', { editVersion: false })}
           >
-          <Text>+</Text>
+          <Text style={COMMON_STYLES.addButton}>+</Text>
         </PressableButton>
       ),
     });
   }, [navigation]);
 
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     //title: editVersion ? "Edit" : "Add an Activity",
-  //     headerRight: () => (
-  //       <PressableButton
-  //         customStyle={COMMON_STYLES.deleteButton}
-  //         onPressFunction={handleDelete}
-  //       >
-  //         {editVersion && <AntDesign name="delete" size={24} color="white" />}
-  //       </PressableButton>
-  //     ),
-  //   });
-  // }, [editVersion]);
   
 
   return (

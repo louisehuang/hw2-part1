@@ -99,7 +99,7 @@ export const COLORS = {
         backgroundColor:COLORS.header,
         borderRadius: 10,
         padding: 8,
-        marginBottom: 10,
+        //marginBottom: 5,
         width: '95%',
         marginLeft: 10,
         justifyContent: "space-between",
@@ -156,8 +156,8 @@ export const COLORS = {
       },
       addButton: {
         backgroundColor: null,
-        paddingRight: 20,
-        fontSize: 18,
+        paddingRight: 15,
+        fontSize: 25,
         color:'white'
       },
       //actvitypressable
