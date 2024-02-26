@@ -87,7 +87,9 @@ const AddActivityScreen = ({ route,navigation }) => {
     if ( !activityType ||!duration || isNaN(duration) || duration <= 0 || !date) {
       Alert.alert('Invalid Input', 'Please check you input values.');
       return;
-    }else{
+    }else{if (editMode) {
+      handleEditSave();
+    }
 
     }
 
@@ -106,10 +108,7 @@ const AddActivityScreen = ({ route,navigation }) => {
     //updateActivities(newActivity);
     //add to firebase
     addToDB(newActivity);
-        // // Clear the input fields
-        // setActivityType("");
-        // setDuration("");
-        // setDate(null);
+
     navigation.goBack();
   };
 
@@ -138,7 +137,7 @@ const AddActivityScreen = ({ route,navigation }) => {
   };
 
   // Handle the confirm save button press
-  function handleConfirmSave() {
+  function handleEditSave() {
     Alert.alert(
       "Important",
       "Are you sure you want to save these changes?",
@@ -147,13 +146,10 @@ const AddActivityScreen = ({ route,navigation }) => {
         {
           text: "Yes",
           onPress: () => {
-            // If editMode is true, update the activity in the database
             if (isChecked && special) {
-              // If the checkbox is checked and the activity is special,
-              // update the activity as not special
               const updatedActivity = {
-                id: activityId,
-                type: activity,
+                id: activityToEdit,
+                type: activityType,
                 duration: parseInt(duration),
                 date: date.toDateString(),
                 special: false,
@@ -163,12 +159,11 @@ const AddActivityScreen = ({ route,navigation }) => {
               // If the checkbox is not checked or the activity is not special,
               // update the activity as is
               const updatedActivity = {
-                id: activityToEdit,
-                type: activity,
+                type: activityType,
                 duration: parseInt(duration),
                 date: date.toDateString(),
-                special: validateActivitySpecial({
-                  type: activity,
+                special: validateSpecial({
+                  type: activityType,
                   duration: duration,
                 }),
               };
@@ -176,7 +171,7 @@ const AddActivityScreen = ({ route,navigation }) => {
             }
 
             // Navigate back to the previous screen
-            navigation.goBack();
+            //navigation.goBack();
           },
         },
       ],
