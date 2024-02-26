@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View,FlatList } from "react-native";
 import React, { useState, useEffect } from 'react';
 import { Entypo } from '@expo/vector-icons';
 import { COMMON_STYLES } from './styles';
@@ -28,13 +28,32 @@ const ActivityList = ({ type, navigation }) => {
   }, [type]);
 
   function handleEdit(activity) {
-    navigation.navigate("Add An Activity", { editMode: true, activityToEdit:activity.id,});
+    navigation.navigate("Add An Activity", { editMode: true, activityToEdit:activity.id });
   }
 
     return (
-      // specail activity do not have icon fix it
-    <View style={COMMON_STYLES.container}>
-       <View style={COMMON_STYLES.specialContainer}>
+     
+    <View style={COMMON_STYLES.specialContainer}>
+      {/* <FlatList
+        data={activities}
+        keyExtractor={(activity) => activity.id}
+        renderItem={({ item }) => (
+          <PressableButton
+            key={item.id}
+            customStyle={COMMON_STYLES.pressableContainer}
+            onPressFunction={() => handleEdit(item)}
+          >
+            <Text style={COMMON_STYLES.activityText}>{item.type} 
+              {item.special && <Entypo name="warning" size={15} color="gold" />}
+            </Text>
+            <View style={COMMON_STYLES.detailContainer}>
+              <Text style={COMMON_STYLES.activityInfoText}>{item.date}</Text>
+              <Text style={COMMON_STYLES.activityInfoText}>{item.duration} min</Text>
+            </View>
+          </PressableButton>
+        )}
+      /> */}
+      <View style={COMMON_STYLES.specialContainer}>
       
         {activities.map(activity => (
            <PressableButton 
@@ -58,7 +77,8 @@ const ActivityList = ({ type, navigation }) => {
           </View>
           </PressableButton>
         ))}
-        </View>
+      
+      </View>
       </View>
     );
   };

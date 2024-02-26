@@ -32,7 +32,7 @@ const AddActivityScreen = ({ route,navigation }) => {
       ),
     });
   }, [editMode]);
-
+  //console.log("Selected Option:", activityToEdit);
 
   useEffect(() => {
     if (editMode) {
@@ -93,7 +93,7 @@ const AddActivityScreen = ({ route,navigation }) => {
 
     // Save the new entry
     const newActivity = {
-      //id: editMode ? activityToEdit.id : Date.now(),
+      //id: Date.now(),
       type: activityType,
       duration: parseInt(duration),
       date:date.toDateString(),
@@ -106,7 +106,10 @@ const AddActivityScreen = ({ route,navigation }) => {
     //updateActivities(newActivity);
     //add to firebase
     addToDB(newActivity);
-
+        // // Clear the input fields
+        // setActivityType("");
+        // setDuration("");
+        // setDate(null);
     navigation.goBack();
   };
 
@@ -119,7 +122,7 @@ const AddActivityScreen = ({ route,navigation }) => {
         {
           text: "Yes",
           onPress: () => {
-            deleteFromDB(activityId);
+            deleteFromDB(activityToEdit);
             navigation.goBack();
           },
         },
@@ -134,31 +137,52 @@ const AddActivityScreen = ({ route,navigation }) => {
     navigation.goBack();
   };
 
+  // Handle the confirm save button press
+  function handleConfirmSave() {
+    Alert.alert(
+      "Important",
+      "Are you sure you want to save these changes?",
+      [
+        { text: "No" },
+        {
+          text: "Yes",
+          onPress: () => {
+            // If editMode is true, update the activity in the database
+            if (isChecked && special) {
+              // If the checkbox is checked and the activity is special,
+              // update the activity as not special
+              const updatedActivity = {
+                id: activityId,
+                type: activity,
+                duration: parseInt(duration),
+                date: date.toDateString(),
+                special: false,
+              };
+              updateInDB(activityToEdit, updatedActivity);
+            } else {
+              // If the checkbox is not checked or the activity is not special,
+              // update the activity as is
+              const updatedActivity = {
+                id: activityToEdit,
+                type: activity,
+                duration: parseInt(duration),
+                date: date.toDateString(),
+                special: validateActivitySpecial({
+                  type: activity,
+                  duration: duration,
+                }),
+              };
+              updateInDB(activityToEdit, updatedActivity);
+            }
 
-  // const onChangeDate = (event, selectedDate) => {
-  //   const currentDate = selectedDate || date || new Date();
-  //   setShowDatePicker(false);;
-  //    setShowDatePicker (false);
-  //   setDate(currentDate);
-  // };
-
-  // const toggleDatePicker = () => {
-  //   setShowDatePicker(prevState => !prevState); // Toggle showDatePicker state
-  //   if (!showDatePicker) {
-  //     setDate(new Date());
-  //   }
-  // };
-
-
-  // const formatDate = (date) => {
-  //   if (!date) return '';
-  //   const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-  //   const formattedDate = date.toLocaleDateString(undefined, options);
-  //   const parts = formattedDate.split(', ');
-  
-  //   // Join the parts without the comma
-  //   return parts.join(' ');
-  // };
+            // Navigate back to the previous screen
+            navigation.goBack();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  }
 
   return (
     <View style={COMMON_STYLES.container}>
@@ -183,38 +207,26 @@ const AddActivityScreen = ({ route,navigation }) => {
         activityDate={date}
         onDateChange={setDate}
       />
-      {/* <Text style={COMMON_STYLES.labelText}>Date *</Text>
-      <View style={COMMON_STYLES.inputContainer}>
-        <TouchableOpacity onPress={toggleDatePicker}>
-          <View style={styles.dateInput}>
-            <Text
-            style={COMMON_STYLES.inputText}>{formatDate(date)}</Text>
-          </View>
-        </TouchableOpacity>  
-      </View>    
-        {showDatePicker && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date || new Date()}
-            mode="date"
-            is24Hour={true}
-            display="inline"
-            onChange={onChangeDate}
-            style={COMMON_STYLES.labelText}
-          />
-        )} */}
 
-        <View >
-          <Text style={styles.errorText}>
-            This item is marked as special. 
-            Select the checkbox if you would like to approve it.
-          </Text>
-          <Checkbox
-            style={styles.checkbox}
-            value={isChecked}
-            onValueChange={setChecked}
-          />
         </View>
+        <View>
+          {editMode && special==true && (
+            <View style={styles.checkboxContainer}>
+                        <Checkbox
+                style={styles.checkbox}
+                value={isChecked}
+                onValueChange={setChecked}
+              />
+              <Text style={styles.errorText}>
+                This item is marked as special. 
+                Select the checkbox if you would like to approve it.
+              </Text>
+              
+            </View>
+          )}
+
+        </View>
+        
      
         <View style={COMMON_STYLES.buttonsContainer}>
           <View style={COMMON_STYLES.buttonView}>
@@ -234,7 +246,7 @@ const AddActivityScreen = ({ route,navigation }) => {
             </PressableButton>
           
       </View>
-      </View>
+
 
     </View>  
   );
@@ -253,6 +265,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 5,
   },
+  checkboxContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  }
   
 });
 

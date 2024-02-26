@@ -165,6 +165,25 @@ export const COLORS = {
       deleteButton: {
         backgroundColor: null,
         paddingRight: 20,
-      }
+      },
+      itemContainer: {
+        flex: 1,
+        flexDirection: "row",
+        padding: 10,
+        backgroundColor: "darkslateblue",
+        borderRadius: 10,
+        marginBottom: 18,
+        justifyContent: "space-between",
+        alignItems: "center",
+      },
+      detailContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        columnGap: 5,
+      },
+
+
+      
     
     };
+

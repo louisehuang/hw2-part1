@@ -45,7 +45,7 @@ function MainTabNavigator() {
 
 export default function App() {
   return (
-    <ActivityProvider>
+    
        <NavigationContainer>
         <Stack.Navigator screenOptions={{
           headerStyle: { backgroundColor: COLORS.header },
@@ -62,7 +62,7 @@ export default function App() {
       
       
       </NavigationContainer>
-    </ActivityProvider>
+ 
      
 
   );
