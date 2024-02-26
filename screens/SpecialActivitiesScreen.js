@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from 'react';
-import { View,Text, Button} from 'react-native';
+import React, {useEffect } from 'react';
+import { View,Text} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { COMMON_STYLES } from "../components/styles";
 
 import PressableButton from "../components/PressableButton";
 import ActivityList from '../components/ActivityList';
-import { AntDesign } from "@expo/vector-icons";
 
 const SpecialActivitiesScreen = () => {
   const navigation = useNavigation();

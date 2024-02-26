@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     defaultStyle: {
       borderRadius: 5,
       padding: 10,
-      backgroundColor: "#f0f0f0",
+      backgroundColor: COLORS.grey,
     },
     pressed: {
       opacity: 0.5,

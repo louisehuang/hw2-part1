@@ -8,7 +8,7 @@ import SpecialActivitiesScreen from './screens/SpecialActivitiesScreen';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import AddActivityScreen from './screens/AddAnActivityScreen';
-import { ActivityProvider } from './components/ActivityContext'
+
 import { COLORS } from './components/styles';
 
 
@@ -52,7 +52,7 @@ export default function App() {
           headerTintColor: COLORS.headerText,
         }}>
           <Stack.Screen name="Start" component={StartScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: true }}/>
+          <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }}/>
           <Stack.Screen name="Add An Activity" component={AddActivityScreen} options={{  headerBackTitleVisible: false,
             headerTitleStyle: { color: COLORS.headerText }, 
           }}/>

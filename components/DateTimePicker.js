@@ -49,7 +49,7 @@ const DatePicker= ({  editMode, activityDate, onDateChange }) => {
       <Text style={COMMON_STYLES.labelText}>Date *</Text>
       <View style={COMMON_STYLES.inputContainer}>
           <TouchableOpacity onPress={toggleDatePicker}>
-          <View style={styles.dateInput}>
+          <View>
               <Text
               style={COMMON_STYLES.inputText}>{formatDate(date)}</Text>
           </View>
@@ -71,22 +71,6 @@ const DatePicker= ({  editMode, activityDate, onDateChange }) => {
   };
   export default DatePicker;
   
-     
-    const styles = StyleSheet.create({
-
-        input: {
-          borderBottomColor: COLORS.test,
-          fontSize: 20,
-          color: COLORS.header,
-          paddingVertical: 5,
-        },
-        errorText: {
-          color: COLORS.grey,
-          fontSize: 16,
-          marginTop: 5,
-        },
-        
-      });
       
 
     

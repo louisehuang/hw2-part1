@@ -53,7 +53,7 @@ export const COLORS = {
         marginHorizontal: 20,
         marginVertical: 20,
         marginRight: 0,
-        //width:'80%',
+        width:'90%',
         flexDirection: "row", 
         justifyContent: "space-around",
         columnGap: 20
@@ -139,11 +139,11 @@ export const COLORS = {
       },
       resetButton: {
         backgroundColor: COLORS.button,
-        width: "95%",
+        width: "92%",
       },
       startButton: {
         backgroundColor: "darkslateblue",
-        width: "40%",
+        width: "45%",
       },
       buttonText: {
         color: "white",
@@ -186,6 +186,11 @@ export const COLORS = {
         marginHorizontal: 20,
         justifyContent: LOCATION.center,
         marginTop: 200,
+      },
+      checkboxContainer: {
+        flexDirection: "row",
+        width:'90%',
+        justifyContent: "space-between",
       },
 
       

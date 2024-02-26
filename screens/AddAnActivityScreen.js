@@ -1,6 +1,5 @@
-import React, { useContext, useState,useEffect } from 'react';
-import { View, Alert,TextInput,  StyleSheet,Text,TouchableOpacity,Keyboard } from 'react-native';
-import { SelectList } from 'react-native-dropdown-select-list'
+import React, {useState,useEffect } from 'react';
+import { View, Alert,TextInput,  StyleSheet,Text,Keyboard } from 'react-native';
 import { database } from "../firebase-files/firebaseSetup";
 import { COMMON_STYLES, COLORS,LOCATION } from '../components/styles';
 import {addToDB, deleteFromDB,updateInDB} from "../firebase-files/firebaseHelper";
@@ -90,7 +89,7 @@ const AddActivityScreen = ({ route,navigation }) => {
     }
     if (editMode) {
       handleEditSave();
-      navigation.goBack(); // Navigate back after handling edit save
+      //navigation.goBack(); // Navigate back after handling edit save
       return; // Exit the function to prevent creating a new activity
     }
   
@@ -133,7 +132,7 @@ const AddActivityScreen = ({ route,navigation }) => {
     navigation.goBack();
   };
 
-  // Handle the confirm save button press
+  // Handle the save button press on Edit
   function handleEditSave() {
     Alert.alert(
       "Important",
@@ -143,6 +142,7 @@ const AddActivityScreen = ({ route,navigation }) => {
         {
           text: "Yes",
           onPress: () => {
+            //update activities on click checkbox or not
             if (isChecked && special) {
               const updatedActivity = {
                 id: activityToEdit,
@@ -153,7 +153,6 @@ const AddActivityScreen = ({ route,navigation }) => {
               };
               updateInDB(activityToEdit, updatedActivity);
             } else {
-          
               const updatedActivity = {
                 type: activityType,
                 duration: parseInt(duration),
@@ -165,6 +164,8 @@ const AddActivityScreen = ({ route,navigation }) => {
               };
               updateInDB(activityToEdit, updatedActivity);
             }
+            // Navigate back to the previous screen after edit
+            navigation.goBack();  
           },
         },
       ],
@@ -199,13 +200,13 @@ const AddActivityScreen = ({ route,navigation }) => {
         </View>
         <View style={COMMON_STYLES.bottomContainer}>
           {editMode && special==true && (
-            <View style={styles.checkboxContainer}>
+            <View style={COMMON_STYLES.checkboxContainer}>
               <Text style={COMMON_STYLES.activityText}>
                 This item is marked as special. 
                 Select the checkbox if you would like to approve it.
               </Text>
               <Checkbox
-                style={styles.checkbox}
+                //style={styles.checkbox}
                 value={isChecked}
                 onValueChange={setChecked}
               />
@@ -239,30 +240,5 @@ const AddActivityScreen = ({ route,navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-
-  input: {
-    borderBottomColor: COLORS.test,
-    fontSize: 20,
-    color: COLORS.header,
-    paddingVertical: 5,
-  },
-  errorText: {
-    color: COLORS.grey,
-    fontSize: 16,
-    marginTop: 5,
-  },
-  checkboxContainer: {
-    flexDirection: "row",
-    width:'90%',
-    justifyContent: "space-between",
-  },
-  buttonText: {
-    color: COLORS.headerText,
-    fontSize: 18,
-    textAlign: LOCATION.center,
-  }
-  
-});
 
 export default AddActivityScreen;
