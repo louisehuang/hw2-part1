@@ -3,7 +3,7 @@ import { View, Text,TouchableOpacity,StyleSheet} from 'react-native';
 import { COMMON_STYLES,COLORS } from './styles';
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-export default function DatePicker({ editMode, activityDate, onDateChange }) {
+const DatePicker= ({  editMode, activityDate, onDateChange }) => {
   const [date, setDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -68,8 +68,10 @@ export default function DatePicker({ editMode, activityDate, onDateChange }) {
           )}
       </View>
     );
-  }
-      
+  };
+  export default DatePicker;
+  
+     
     const styles = StyleSheet.create({
 
         input: {

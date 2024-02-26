@@ -2,11 +2,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import React, { useEffect, useState } from "react";
 import { COMMON_STYLES } from './styles';
 
-export default function DorpDownPicker({
-  editMode,
-  activity,
-  onChangeActivity,
-}) {
+const DorpDownPicker= ({  editVersion, activity, onChangeActivity}) => {
   
   const [selected, setSelectedActivity] = useState("");
   
@@ -31,12 +27,12 @@ const activityOptions = [
   {  key: '7', value: 'Hiking' },
 ];
 let placeholder = "Select An Activity";
-if (editMode && activity) {
+if (editVersion && activity) {
   placeholder = activity;
 }
 
 let defaultSelected = null;
-if (editMode && selected) {
+if (editVersion && selected) {
     defaultSelected = { key: selected, value: selected };
 }
   return (
@@ -50,4 +46,5 @@ if (editMode && selected) {
       search={false}
       />
 );
-}
+};
+export default DorpDownPicker;
