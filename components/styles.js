@@ -93,7 +93,7 @@ export const COLORS = {
         borderRadius: 10,
         padding: 8,
         marginBottom: 10,
-        width: '90%',
+        width: '95%',
         marginLeft: 10,
         justifyContent: "space-between",
         

@@ -33,16 +33,19 @@ const ActivityList = ({ type, navigation }) => {
 
     return (
      
-    <View style={COMMON_STYLES.specialContainer}>
-      {/* <FlatList
+
+      <View style={COMMON_STYLES.specialContainer}>
+            {/* <FlatList
         data={activities}
         keyExtractor={(activity) => activity.id}
         renderItem={({ item }) => (
           <PressableButton
-            key={item.id}
             customStyle={COMMON_STYLES.pressableContainer}
             onPressFunction={() => handleEdit(item)}
           >
+          <View key={activity.id} style={COMMON_STYLES.activityContainer}>
+
+
             <Text style={COMMON_STYLES.activityText}>{item.type} 
               {item.special && <Entypo name="warning" size={15} color="gold" />}
             </Text>
@@ -53,9 +56,7 @@ const ActivityList = ({ type, navigation }) => {
           </PressableButton>
         )}
       /> */}
-      <View style={COMMON_STYLES.specialContainer}>
-      
-        {activities.map(activity => (
+        {/* {activities.map(activity => (
            <PressableButton 
            customStyle={COMMON_STYLES.pressableContainer}
            onPressFunction={() => handleEdit(activity)}>
@@ -78,9 +79,37 @@ const ActivityList = ({ type, navigation }) => {
             </View>
           </View>
           </PressableButton>
-        ))}
-      
-      </View>
+        ))} */}
+
+      <FlatList
+        data={activities}
+        keyExtractor={(activity) => activity.id}
+        renderItem={({ item }) => (
+          <PressableButton
+            customStyle={COMMON_STYLES.pressableContainer}
+            onPressFunction={() => handleEdit(item)}
+          >
+          <View key={activities.id} style={COMMON_STYLES.activityContainer}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={COMMON_STYLES.activityText}>{item.type}</Text>
+            {item.special && (
+              <View style={{ marginLeft: 5 }}>
+                <Entypo name="warning" size={15} color="gold" />
+              </View>
+            )}
+          </View>
+            <View style={[COMMON_STYLES.activityInfoContainer,{ justifyContent: 'flex-end' }]}>
+              <View style={COMMON_STYLES.activityInfo}>
+                <Text style={COMMON_STYLES.activityInfoText}>{item.date}</Text>
+              </View>
+              <View style={COMMON_STYLES.activityInfo}>
+                <Text style={COMMON_STYLES.activityInfoText}>{item.duration} min</Text>
+              </View>  
+            </View>
+          </View>  
+          </PressableButton>
+          )}
+          />
       </View>
     );
   };

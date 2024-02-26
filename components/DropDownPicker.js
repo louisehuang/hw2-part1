@@ -47,6 +47,7 @@ if (editMode && selected) {
       save="value"
       defaultSelected={defaultSelected}
       dropdownTextStyles={COMMON_STYLES.dropdownText}
+      search={false}
       />
 );
 }
