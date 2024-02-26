@@ -1,10 +1,10 @@
 import React, {useState,useEffect } from 'react';
-import { View, Alert,TextInput,  StyleSheet,Text,Keyboard } from 'react-native';
+import { View, Alert,TextInput,Text,Keyboard } from 'react-native';
 import { database } from "../firebase-files/firebaseSetup";
-import { COMMON_STYLES, COLORS,LOCATION } from '../components/styles';
+import { COMMON_STYLES } from '../components/styles';
 import {addToDB, deleteFromDB,updateInDB} from "../firebase-files/firebaseHelper";
 import PressableButton from '../components/PressableButton';
-import { AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { doc, getDoc } from "firebase/firestore";
 import Checkbox from "expo-checkbox";
 import DropDownPicker from '../components/DropDownPicker';
@@ -26,7 +26,7 @@ const AddActivityScreen = ({ route,navigation }) => {
           customStyle={COMMON_STYLES.deleteButton}
           onPressFunction={handleDelete}
         >
-          {editMode && <AntDesign name="delete" size={20} color="white" />}
+          {editMode && <Ionicons name="trash" size={20} color="white" />}
         </PressableButton>
       ),
     });
