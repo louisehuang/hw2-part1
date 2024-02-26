@@ -64,15 +64,17 @@ const ActivityList = ({ type, navigation }) => {
             <Text style={COMMON_STYLES.activityText}>
               {activity.type} {activity.special && <Entypo name="warning" size={15} color="gold" />}
             </Text>
-            <View style={COMMON_STYLES.activityInfo}>
-              <Text style={COMMON_STYLES.activityInfoText}>
-                {activity.date}
-              </Text>
-            </View>
-            <View style={COMMON_STYLES.activityInfo}>
-              <Text style={COMMON_STYLES.activityInfoText}>
-                {activity.duration} mins
-              </Text>
+            <View style={[COMMON_STYLES.activityInfoContainer,{ justifyContent: 'flex-end' }]}>
+              <View style={COMMON_STYLES.activityInfo}>
+                <Text style={COMMON_STYLES.activityInfoText}>
+                  {activity.date}
+                </Text>
+              </View>
+              <View style={COMMON_STYLES.activityInfo}>
+                <Text style={COMMON_STYLES.activityInfoText}>
+                  {activity.duration} mins
+                </Text>
+              </View>
             </View>
           </View>
           </PressableButton>

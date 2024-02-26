@@ -169,9 +169,6 @@ const AddActivityScreen = ({ route,navigation }) => {
               };
               updateInDB(activityToEdit, updatedActivity);
             }
-
-            // Navigate back to the previous screen
-            //navigation.goBack();
           },
         },
       ],
@@ -204,19 +201,18 @@ const AddActivityScreen = ({ route,navigation }) => {
       />
 
         </View>
-        <View>
+        <View style={COMMON_STYLES.bottomContainer}>
           {editMode && special==true && (
             <View style={styles.checkboxContainer}>
-                        <Checkbox
+              <Text style={COMMON_STYLES.activityText}>
+                This item is marked as special. 
+                Select the checkbox if you would like to approve it.
+              </Text>
+              <Checkbox
                 style={styles.checkbox}
                 value={isChecked}
                 onValueChange={setChecked}
               />
-              <Text style={styles.errorText}>
-                This item is marked as special. 
-                Select the checkbox if you would like to approve it.
-              </Text>
-              
             </View>
           )}
 
@@ -262,6 +258,7 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: "row",
+    width:'90%',
     justifyContent: "space-between",
   }
   

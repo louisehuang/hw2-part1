@@ -53,6 +53,7 @@ export const COLORS = {
         marginHorizontal: 20,
         marginVertical: 20,
         marginRight: 0,
+        width:'80%',
         flexDirection: "row" },
       buttonView: {
         width: "35%",
@@ -108,7 +109,8 @@ export const COLORS = {
       activityInfoContainer:{
         flexDirection: 'row',
         backgroundColor:COLORS.header, 
-        columnGap: 5,
+        //columnGap: 5,
+        marginLeft: 10,
 
       },
       activityInfo: {
@@ -166,22 +168,13 @@ export const COLORS = {
         backgroundColor: null,
         paddingRight: 20,
       },
-      itemContainer: {
-        flex: 1,
-        flexDirection: "row",
-        padding: 10,
-        backgroundColor: "darkslateblue",
-        borderRadius: 10,
-        marginBottom: 18,
-        justifyContent: "space-between",
-        alignItems: "center",
-      },
-      detailContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        columnGap: 5,
-      },
+      bottomContainer: {
+        flexDirection: "column",
 
+        marginHorizontal: 20,
+        justifyContent: LOCATION.center,
+        marginTop: 200,
+      },
 
       
     
