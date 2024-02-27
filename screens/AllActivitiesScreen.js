@@ -15,6 +15,7 @@ const AllActivitiesScreen = () => {
         headerRight: () => (
           <PressableButton
           customStyle={COMMON_STYLES.addButton}
+            //go to add an activity screen, not editMode
             onPressFunction={() => navigation.navigate('Add An Activity', { editVersion: false })}
           >
           <Text style={COMMON_STYLES.addButton}>+</Text>

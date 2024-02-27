@@ -10,7 +10,7 @@ import Checkbox from "expo-checkbox";
 import DropDownPicker from '../components/DropDownPicker';
 import DateTimePicker from '../components/DateTimePicker'
 
-const AddActivityScreen = ({ route,navigation }) => {
+const AddActivityScreen = ({ route, navigation }) => {
   const [activityType, setActivityType] = useState('');
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(null);
@@ -89,7 +89,6 @@ const AddActivityScreen = ({ route,navigation }) => {
     }
     if (editMode) {
       handleEditSave();
-      //navigation.goBack(); // Navigate back after handling edit save
       return; // Exit the function to prevent creating a new activity
     }
   
@@ -163,7 +162,7 @@ const AddActivityScreen = ({ route,navigation }) => {
               };
               updateInDB(activityToEdit, updatedActivity);
             }
-            // Navigate back to the previous screen after edit
+            // Navigate back to the previous screen after edit, after the message displayed
             navigation.goBack();  
           },
         },
@@ -229,7 +228,7 @@ const AddActivityScreen = ({ route,navigation }) => {
               <Text style={COMMON_STYLES.buttonText}>Save</Text>
             </PressableButton>
           
-      </View>
+        </View>
 
 
     </View>  

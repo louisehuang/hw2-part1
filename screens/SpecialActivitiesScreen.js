@@ -2,14 +2,14 @@ import React, {useEffect } from 'react';
 import { View,Text} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { COMMON_STYLES } from "../components/styles";
-
+import { FontAwesome6 } from '@expo/vector-icons';
 import PressableButton from "../components/PressableButton";
 import ActivityList from '../components/ActivityList';
 
 const SpecialActivitiesScreen = () => {
   const navigation = useNavigation();
   
-
+  //go to add an activity screen, not editMode
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (

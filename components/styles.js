@@ -30,7 +30,6 @@ export const COLORS = {
         marginTop:20,
         justifyContent: LOCATION.top,
         padding: 10,
-
       },
 
       specialContainer: {
