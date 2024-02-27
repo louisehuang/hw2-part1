@@ -1,29 +1,27 @@
-
-import React, { useContext,useEffect } from "react";
-import { View, Text,Button } from 'react-native';
+import React, { useEffect } from "react";
+import { View, Text} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ActivityContext } from '../components/ActivityList'; // Import your ActivityContext
-import { Entypo } from '@expo/vector-icons';
 import { COMMON_STYLES } from "../components/styles";
-
+import PressableButton from "../components/PressableButton";
+import ActivityList from '../components/ActivityList';
 
 
 const AllActivitiesScreen = () => {
   const navigation = useNavigation();
-  const { activities } = useContext(ActivityContext); 
-  const specialActivities = activities.filter(
-    activity => (activity.type === 'Running' || activity.type === 'Weights') && activity.duration > 60
-  );
   // functions inside useEffect are called after the rendering
   useEffect(() => {
-    if (navigation) { // Ensure navigation object exists before using it
+    if (navigation) { 
       navigation.setOptions({
         headerRight: () => (
-          <Button
-            title="Add"
-            color= 'gold'
-            onPress={() => navigation.navigate('Add An Activity')}
-          />
+          <PressableButton
+          customStyle={COMMON_STYLES.addButton}
+            //go to add an activity screen, not editMode
+            onPressFunction={() => navigation.navigate('Add An Activity', { editVersion: false })}
+          >
+          <Text style={COMMON_STYLES.addButton}>+</Text>
+          </PressableButton>
+          
+          
         ),
       });
     }
@@ -33,37 +31,10 @@ const AllActivitiesScreen = () => {
 
   return (
     <View style={COMMON_STYLES.container}>
-       <View style={COMMON_STYLES.specialContainer}>
-        {activities.map((activity) => (
-          <View key={activity.id} style={COMMON_STYLES.activityContainer}>
-
-            <View style={COMMON_STYLES.iconInfo}>
-            
-            <Text style={COMMON_STYLES.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={15} color="gold" />}
-            </Text>
-            
-            
-            </View>
-
-            <View style={[COMMON_STYLES.activityInfoContainer,{ justifyContent: 'flex-end' }]}>
-              <View style={COMMON_STYLES.activityInfo}>
-                <Text style={COMMON_STYLES.activityInfoText}>
-                {activity.formattedDate}
-                </Text>
-              </View>
-              <View style={COMMON_STYLES.activityInfo}>
-                <Text style={COMMON_STYLES.activityInfoText}>
-                {activity.duration} mins
-                </Text>
-              </View>  
-        
-              
-            </View>
-            
-          </View>
-          
-        ))}
-      </View>
+      <ActivityList type ="all"
+      navigation={navigation}/>
+      
+      
     </View>
    
   );
