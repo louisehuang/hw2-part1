@@ -1,7 +1,7 @@
 import React, {useState,useEffect } from 'react';
 import { View, Alert,TextInput,Text,Keyboard } from 'react-native';
 import { database } from "../firebase-files/firebaseSetup";
-import { COMMON_STYLES } from '../components/styles';
+import { COLORS, COMMON_STYLES } from '../components/styles';
 import {addToDB, deleteFromDB,updateInDB} from "../firebase-files/firebaseHelper";
 import PressableButton from '../components/PressableButton';
 import { Ionicons } from "@expo/vector-icons";
@@ -197,15 +197,15 @@ const AddActivityScreen = ({ route,navigation }) => {
       />
 
         </View>
+
         <View style={COMMON_STYLES.bottomContainer}>
           {editMode && special==true && (
             <View style={COMMON_STYLES.checkboxContainer}>
-              <Text style={COMMON_STYLES.activityText}>
+              <Text style={[COMMON_STYLES.activityText,{ color: COLORS.header }]}>
                 This item is marked as special. 
                 Select the checkbox if you would like to approve it.
               </Text>
               <Checkbox
-                //style={styles.checkbox}
                 value={isChecked}
                 onValueChange={setChecked}
               />
@@ -213,18 +213,15 @@ const AddActivityScreen = ({ route,navigation }) => {
           )}
 
         </View>
-        
      
         <View style={COMMON_STYLES.buttonsContainer}>
-          {/* <View style={COMMON_STYLES.buttonViewA}> */}
+          
           <PressableButton
               customStyle={COMMON_STYLES.cancelButton}
               onPressFunction={handleCancel}
             >
               <Text style={ COMMON_STYLES.buttonText}>Cancel</Text>
             </PressableButton>
-        {/* </View>
-          <View style={COMMON_STYLES.buttonViewA}></View> */}
           <PressableButton
               customStyle={COMMON_STYLES.saveButton}
               onPressFunction={handleSave}

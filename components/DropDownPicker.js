@@ -40,8 +40,10 @@ const DorpDownPicker= ({  editMode, activity, onChangeActivity}) => {
       data={activityOptions}
       setSelected={handleEditActivity}
       placeholder={placeholder}
+      placeholderStyle={COMMON_STYLES.dropdownText}
       save="value"
       defaultSelected={defaultSelected}
+      inputStyles={COMMON_STYLES.inputText}
       dropdownTextStyles={COMMON_STYLES.dropdownText}
       search={false}
       />

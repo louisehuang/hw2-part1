@@ -49,16 +49,15 @@ export const COLORS = {
       },
 
       buttonsContainer: { 
-        padding: 40,
+        padding: 30,
         marginHorizontal: 20,
         marginVertical: 20,
         marginRight: 0,
         width:'90%',
         flexDirection: "row", 
         justifyContent: "space-around",
-        columnGap: 20
-        
-
+        columnGap: 50
+    
       },
       buttonView: {
         width: "45%",
@@ -75,7 +74,6 @@ export const COLORS = {
         flex: 1,
         justifyContent: LOCATION.center,
         alignItems: LOCATION.center,
-        
       },
       labelText: {
         color: COLORS.text,
@@ -86,7 +84,7 @@ export const COLORS = {
       },
       inputText: {
         color: COLORS.inputText,
-        fontSize: 15,
+        fontSize: 12,
         marginTop: 5,
         marginHorizontal:5,
         fontWeight: 'bold'
@@ -182,10 +180,8 @@ export const COLORS = {
       },
       bottomContainer: {
         flexDirection: "column",
-
         marginHorizontal: 20,
         justifyContent: LOCATION.center,
-        marginTop: 200,
       },
       checkboxContainer: {
         flexDirection: "row",

@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from "react";
-import { View, Text,TouchableOpacity,StyleSheet} from 'react-native';
-import { COMMON_STYLES,COLORS } from './styles';
+import { View, Text,TouchableOpacity} from 'react-native';
+import { COMMON_STYLES } from './styles';
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 const DatePicker= ({  editMode, activityDate, onDateChange }) => {
@@ -19,10 +19,12 @@ const DatePicker= ({  editMode, activityDate, onDateChange }) => {
   const onChangeDate = (event, selectedDate) => {
       const currentDate = selectedDate || date || new Date();
       setShowDatePicker(false);;
-      setShowDatePicker (false);
-      if (onDateChange) {
-    onDateChange(currentDate);
-  }
+      //display changed data on addanactivity
+      setDate(currentDate);
+      //display changed data on editMode
+      onDateChange(currentDate);
+      
+  
     };
   
     const toggleDatePicker = () => {
