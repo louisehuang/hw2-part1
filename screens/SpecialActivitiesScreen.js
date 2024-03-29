@@ -1,55 +1,36 @@
-import React, { useContext, useEffect } from 'react';
-import { View,Text, Button} from 'react-native';
+import React, {useEffect } from 'react';
+import { View,Text} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ActivityContext } from '../components/ActivityList'; 
 import { COMMON_STYLES } from "../components/styles";
-import { Entypo } from '@expo/vector-icons';
+import { FontAwesome6 } from '@expo/vector-icons';
+import PressableButton from "../components/PressableButton";
+import ActivityList from '../components/ActivityList';
 
 const SpecialActivitiesScreen = () => {
   const navigation = useNavigation();
-  const { activities } = useContext(ActivityContext); 
-  const specialActivities = activities.filter(
-    activity => (activity.type === 'Running' || activity.type === 'Weights') && activity.duration > 60
-  );
   
-
+  //go to add an activity screen, not editMode
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button
-          title='Add'
-          color='gold'
-          onPress={() => navigation.navigate('Add An Activity')}
-        />
+        <PressableButton
+          customStyle={COMMON_STYLES.addButton}
+            onPressFunction={() => navigation.navigate('Add An Activity', { editVersion: false })}
+          >
+          <Text style={COMMON_STYLES.addButton}>+</Text>
+        </PressableButton>
       ),
     });
   }, [navigation]);
 
+  
+
   return (
 
     <View style={COMMON_STYLES.container}>
-      <View style={COMMON_STYLES.specialContainer}>
-        {specialActivities.map((activity) => (
-          <View key={activity.id} style={COMMON_STYLES.activityContainer}>
-          <Text style={COMMON_STYLES.activityText}>{activity.type} {specialActivities.includes(activity) && <Entypo name="warning" size={15} color="gold" />}
-            </Text>
-          <View style={COMMON_STYLES.activityInfo}>
-            <Text style={COMMON_STYLES.activityInfoText}>     
-              {activity.formattedDate}
-            </Text>
-          </View>
-
-          <View style={COMMON_STYLES.activityInfo}>
-              <Text style={COMMON_STYLES.activityInfoText}>
-                {activity.duration} mins 
-                </Text>
-          </View>
-
-          
-
-        </View>
-      ))}
-      </View>
+      <ActivityList type ="special"
+      navigation={navigation}/>
+      
       
     </View>
   );

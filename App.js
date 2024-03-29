@@ -8,7 +8,7 @@ import SpecialActivitiesScreen from './screens/SpecialActivitiesScreen';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import AddActivityScreen from './screens/AddAnActivityScreen';
-import { ActivityProvider } from './components/ActivityList'
+
 import { COLORS } from './components/styles';
 
 
@@ -45,7 +45,7 @@ function MainTabNavigator() {
 
 export default function App() {
   return (
-    <ActivityProvider>
+    
        <NavigationContainer>
         <Stack.Navigator screenOptions={{
           headerStyle: { backgroundColor: COLORS.header },
@@ -62,7 +62,7 @@ export default function App() {
       
       
       </NavigationContainer>
-    </ActivityProvider>
+ 
      
 
   );

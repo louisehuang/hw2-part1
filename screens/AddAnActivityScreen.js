@@ -1,17 +1,60 @@
-import React, { useContext, useState,useEffect } from 'react';
-import { View, Button, Alert,TextInput,  StyleSheet,Text,TouchableOpacity,Keyboard } from 'react-native';
-import { SelectList } from 'react-native-dropdown-select-list'
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { ActivityContext } from '../components/ActivityList';
-import { COMMON_STYLES, COLORS } from '../components/styles';
-import CustomButton from '../components/CustomButton';
+import React, {useState,useEffect } from 'react';
+import { View, Alert,TextInput,Text,Keyboard } from 'react-native';
+import { database } from "../firebase-files/firebaseSetup";
+import { COLORS, COMMON_STYLES } from '../components/styles';
+import {addToDB, deleteFromDB,updateInDB} from "../firebase-files/firebaseHelper";
+import PressableButton from '../components/PressableButton';
+import { Ionicons } from "@expo/vector-icons";
+import { doc, getDoc } from "firebase/firestore";
+import Checkbox from "expo-checkbox";
+import DropDownPicker from '../components/DropDownPicker';
+import DateTimePicker from '../components/DateTimePicker'
 
-const AddActivityScreen = ({ navigation }) => {
-  const {updateActivities } = useContext(ActivityContext);
+const AddActivityScreen = ({ route, navigation }) => {
   const [activityType, setActivityType] = useState('');
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [special, setSpecial] = useState(false);
+  const [isChecked, setChecked] = useState(false);
+  const { editMode, activityToEdit } = route.params;
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: editMode ? "Edit" : "Add an Activity",
+      headerRight: () => (
+        <PressableButton
+          customStyle={COMMON_STYLES.deleteButton}
+          onPressFunction={handleDelete}
+        >
+          {editMode && <Ionicons name="trash" size={20} color="white" />}
+        </PressableButton>
+      ),
+    });
+  }, [editMode]);
+  //console.log("Selected Option:", activityToEdit);
+
+  useEffect(() => {
+    if (editMode) {
+      const fetchActivity = async () => {
+        try {
+          const docRef = doc(database, "activities", activityToEdit);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const activityData = docSnap.data();
+            setActivityType(activityData.type);
+            setDuration(activityData.duration.toString());
+            setDate(new Date(activityData.date));
+            setSpecial(activityData.special);
+          } else {
+            console.log("No such document!");
+          }
+        } catch (err) {
+          console.error("Error getting document:", err);
+        }
+      };
+      fetchActivity();
+    }
+  }, [editMode, activityToEdit]);
   
   useEffect(() => {
     //dynamically adjust the layout when the keyboard is shown or hidden
@@ -28,75 +71,115 @@ const AddActivityScreen = ({ navigation }) => {
     };
   }, []);
 
-  const activityOptions = [
-    { label: 'Walking', value: 'Walking' },
-    { label: 'Running', value: 'Running' },
-    { label: 'Swimming', value: 'Swimming' },
-    { label: 'Weights', value: 'Weights' },
-    { label: 'Yoga', value: 'Yoga' },
-    { label: 'Cycling', value: 'Cycling' },
-    { label: 'Hiking', value: 'Hiking' },
-  ];
+
+  function validateSpecial(activity) {
+    if (activity.type === "Running" || activity.type === "Weights") {
+      if (parseInt(activity.duration) > 60) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   const handleSave = () => {
     // Validate user's entries
-    if (!activityType || !duration || isNaN(duration) || duration <= 0 || !date) {
+    if ( !activityType ||!duration || isNaN(duration) || duration <= 0 || !date) {
       Alert.alert('Invalid Input', 'Please check you input values.');
       return;
     }
-
+    if (editMode) {
+      handleEditSave();
+      return; // Exit the function to prevent creating a new activity
+    }
+  
     // Save the new entry
     const newActivity = {
-      id: Date.now(),
       type: activityType,
       duration: parseInt(duration),
-      date,
+      date: date.toDateString(),
+      special: isChecked || validateSpecial({
+        type: activityType,
+        duration: duration,
+      }),
     };
-
-    updateActivities(newActivity);
-
+  
+    addToDB(newActivity);
     navigation.goBack();
   };
+
+  const handleDelete = () => {
+    Alert.alert(
+      "Delete",
+      "Are you sure you want to delete this item?",
+      [
+        { text: "No" },
+        {
+          text: "Yes",
+          onPress: () => {
+            deleteFromDB(activityToEdit);
+            navigation.goBack();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  }
+
 
   const handleCancel = () => {
     // Navigate back to the previous screen
     navigation.goBack();
   };
 
-  const onChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || date || new Date();
-    setShowDatePicker(false);;
-     setShowDatePicker (false);
-    setDate(currentDate);
-  };
-
-  const toggleDatePicker = () => {
-    setShowDatePicker(prevState => !prevState); // Toggle showDatePicker state
-    if (!showDatePicker) {
-      setDate(new Date());
-    }
-  };
-
-
-  const formatDate = (date) => {
-    if (!date) return '';
-    const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-    const formattedDate = date.toLocaleDateString(undefined, options);
-    const parts = formattedDate.split(', ');
-  
-    // Join the parts without the comma
-    return parts.join(' ');
-  };
+  // Handle the save button press on Edit
+  function handleEditSave() {
+    Alert.alert(
+      "Important",
+      "Are you sure you want to save these changes?",
+      [
+        { text: "No" },
+        {
+          text: "Yes",
+          onPress: () => {
+            //update activities on click checkbox or not
+            if (isChecked && special) {
+              const updatedActivity = {
+                type: activityType,
+                duration: parseInt(duration),
+                date: date.toDateString(),
+                special: false,
+              };
+              updateInDB(activityToEdit, updatedActivity);
+            } else {
+              const updatedActivity = {
+                type: activityType,
+                duration: parseInt(duration),
+                date: date.toDateString(),
+                special: validateSpecial({
+                  type: activityType,
+                  duration: duration,
+                }),
+              };
+              updateInDB(activityToEdit, updatedActivity);
+            }
+            // Navigate back to the previous screen after edit, after the message displayed
+            navigation.goBack();  
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  }
 
   return (
     <View style={COMMON_STYLES.container}>
       <View style={COMMON_STYLES.addAcvityContainer}>
       <Text style={COMMON_STYLES.labelText}>Activity *</Text>
-      <SelectList
-        data={activityOptions}
-        setSelected={setActivityType}
-        defaultSelectedIndex={-1} 
-      />
+      <DropDownPicker
+            editMode={editMode}
+            activity={activityType}
+            onChangeActivity={setActivityType}
+          />
       <Text style={COMMON_STYLES.labelText}>Duration *</Text>
       <View style={COMMON_STYLES.inputContainer}>
         
@@ -106,55 +189,51 @@ const AddActivityScreen = ({ navigation }) => {
         keyboardType="numeric"
       />
       </View>
+      <DateTimePicker
+        editMode={editMode}
+        activityDate={date}
+        onDateChange={setDate}
+      />
 
-      <Text style={COMMON_STYLES.labelText}>Date *</Text>
-      <View style={COMMON_STYLES.inputContainer}>
-        <TouchableOpacity onPress={toggleDatePicker}>
-          <View style={styles.dateInput}>
-            <Text
-            style={COMMON_STYLES.inputText}>{formatDate(date)}</Text>
-          </View>
-        </TouchableOpacity>  
-      </View>    
-        {showDatePicker && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date || new Date()}
-            mode="date"
-            is24Hour={true}
-            display="inline"
-            onChange={onChangeDate}
-            style={COMMON_STYLES.labelText}
-          />
-        )}
+        </View>
+
+        <View style={COMMON_STYLES.bottomContainer}>
+          {editMode && special==true && (
+            <View style={COMMON_STYLES.checkboxContainer}>
+              <Text style={[COMMON_STYLES.activityText,{ color: COLORS.header }]}>
+                This item is marked as special. 
+                Select the checkbox if you would like to approve it.
+              </Text>
+              <Checkbox
+                value={isChecked}
+                onValueChange={setChecked}
+              />
+            </View>
+          )}
+
+        </View>
      
         <View style={COMMON_STYLES.buttonsContainer}>
-          <View style={COMMON_STYLES.buttonView}>
-            <CustomButton title="Cancel" onPress={handleCancel} />
+          
+          <PressableButton
+              customStyle={COMMON_STYLES.cancelButton}
+              onPressFunction={handleCancel}
+            >
+              <Text style={ COMMON_STYLES.buttonText}>Cancel</Text>
+            </PressableButton>
+          <PressableButton
+              customStyle={COMMON_STYLES.saveButton}
+              onPressFunction={handleSave}
+            >
+              <Text style={COMMON_STYLES.buttonText}>Save</Text>
+            </PressableButton>
+          
         </View>
-          <View style={COMMON_STYLES.buttonView}></View>
-            <Button title="Save" onPress={handleSave} color={ COLORS.text}/>
-      </View>
-      </View>
+
 
     </View>  
   );
 };
 
-const styles = StyleSheet.create({
-
-  input: {
-    borderBottomColor: COLORS.test,
-    fontSize: 20,
-    color: COLORS.header,
-    paddingVertical: 5,
-  },
-  errorText: {
-    color: COLORS.grey,
-    fontSize: 16,
-    marginTop: 5,
-  },
-  
-});
 
 export default AddActivityScreen;

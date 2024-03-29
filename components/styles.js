@@ -30,7 +30,6 @@ export const COLORS = {
         marginTop:20,
         justifyContent: LOCATION.top,
         padding: 10,
-
       },
 
       specialContainer: {
@@ -49,15 +48,21 @@ export const COLORS = {
       },
 
       buttonsContainer: { 
-        padding: 40,
+        padding: 30,
         marginHorizontal: 20,
         marginVertical: 20,
         marginRight: 0,
-        flexDirection: "row" },
-      buttonView: {
-        width: "35%",
-        margin: 5,
+        width:'90%',
+        flexDirection: "row", 
+        justifyContent: "space-around",
+        columnGap: 50
+    
       },
+      buttonView: {
+        width: "45%",
+
+      },
+
       topView: {
         flex: 1,
         alignItems: LOCATION.center,
@@ -78,7 +83,7 @@ export const COLORS = {
       },
       inputText: {
         color: COLORS.inputText,
-        fontSize: 15,
+        fontSize: 12,
         marginTop: 5,
         marginHorizontal:5,
         fontWeight: 'bold'
@@ -91,22 +96,17 @@ export const COLORS = {
         backgroundColor:COLORS.header,
         borderRadius: 10,
         padding: 8,
-        marginBottom: 10,
-        width: '90%',
-        justifyContent: 'flex-end',
+        //marginBottom: 5,
+        width: '95%',
+        marginLeft: 10,
+        justifyContent: "space-between",
         
-      },
-      iconInfo: {
-        flexDirection: 'row',
-        backgroundColor: COLORS.header,
-        padding: 5,
-        marginHorizontal:5,
-        marginRight: 3,
-        justifyContent: LOCATION.top
       },
       activityInfoContainer:{
         flexDirection: 'row',
-        backgroundColor:COLORS.header,
+        backgroundColor:COLORS.header, 
+        //columnGap: 5,
+        marginLeft: 10,
 
       },
       activityInfo: {
@@ -134,5 +134,61 @@ export const COLORS = {
         color: COLORS.header,
         paddingVertical: 5,
       },
+      resetButton: {
+        backgroundColor: COLORS.button,
+        width: "92%",
+      },
+      startButton: {
+        backgroundColor: "darkslateblue",
+        width: "45%",
+      },
+      buttonText: {
+        color: "white",
+        fontSize: 18,
+        textAlign: "center",
+      },
+      dropdownText: {
+        color: COLORS.header,
+        fontSize: 12,
+      },
+      addButton: {
+        backgroundColor: null,
+        paddingRight: 15,
+        fontSize: 25,
+        color:'white'
+      },
+      //actvitypressable
+      pressableContainer:{
+        flexDirection: 'row',
+        borderColor: COLORS.background,
+        backgroundColor:'transparent'
+          
+        },
+      cancelButton: {
+        backgroundColor: COLORS.button,
+        width: "45%",
+      },
+      saveButton: {
+        backgroundColor: "darkslateblue",
+        width: "45%",
+      },
+      
+      deleteButton: {
+        backgroundColor: null,
+        paddingRight: 20,
+      },
+      bottomContainer: {
+        flexDirection: "column",
+        marginHorizontal: 20,
+        justifyContent: LOCATION.center,
+      },
+      checkboxContainer: {
+        flexDirection: "row",
+        width:'90%',
+        justifyContent: "space-between",
+      },
+
+      
     
     };
+
